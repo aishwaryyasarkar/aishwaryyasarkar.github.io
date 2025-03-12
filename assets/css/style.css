@@ -1977,3 +1977,26 @@ textarea.form-input::-webkit-resizer { display: none; }
   .timeline-text { max-width: 700px; }
 
 }
+
+
+@media (max-width: 600px) {
+  /* Already forcing sidebar info to show, so keep that */
+  .sidebar-info_more {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  .sidebar {
+    max-height: none !important;
+  }
+
+  /* Center the social icons in mobile view */
+  .social-list {
+    justify-content: center !important;
+  }
+}
+
+/* Increase icon size for all social links */
+.social-link ion-icon {
+  font-size: 30px; /* or any size you want */
+}
+

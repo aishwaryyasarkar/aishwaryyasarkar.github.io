@@ -1,0 +1,70 @@
+<!-- partials/navbar.html -->
+<nav class="navbar">
+    <ul class="navbar-list">
+  
+      <!-- ABOUT -->
+      <li class="navbar-item">
+        <!-- 
+          We keep "active" on About by default, 
+          and also keep data-nav-link for your existing CSS/JS usage. 
+          The onclick calls loadPartial to switch the main content. 
+        -->
+        <button 
+          class="navbar-link active" 
+          data-nav-link 
+          onclick="loadPartial('content-placeholder', './partials/about.html')"
+        >
+          About
+        </button>
+      </li>
+  
+      <!-- RESUME -->
+      <li class="navbar-item">
+        <button 
+          class="navbar-link" 
+          data-nav-link 
+          onclick="loadPartial('content-placeholder', './partials/resume.html')"
+        >
+          Resume
+        </button>
+      </li>
+  
+      <!-- PUBLICATIONS -->
+      <li class="navbar-item">
+        <button 
+          class="navbar-link" 
+          data-nav-link 
+          onclick="loadPartial('content-placeholder', './partials/publications.html')"
+        >
+          Publications
+        </button>
+      </li>
+  
+      <!-- NEWS -->
+      <li class="navbar-item">
+        <!-- 
+          If you want to keep the data-nav-link="news" attribute 
+          from your original code, just include it here. 
+        -->
+        <button 
+          class="navbar-link" 
+          data-nav-link="news" 
+          onclick="loadPartial('content-placeholder', './partials/news.html')"
+        >
+          News
+        </button>
+      </li>
+   
+      <!-- <li class="navbar-item">
+        <button 
+          class="navbar-link" 
+          data-nav-link 
+          onclick="loadPartial('content-placeholder', './partials/contact.html')"
+        >
+          Contact
+        </button>
+      </li> -->
+  
+    </ul>
+  </nav>
+  
