@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>vCard - Personal Portfolio</title>
+  <title>Aishwarya Sarkar</title>
 
   <!--
     - favicon
@@ -42,13 +42,14 @@
       <div class="sidebar-info">
 
         <figure class="avatar-box">
-          <img src="./assets/images/my-avatar.png" alt="Aishwarya Sarkar" width="80">
+          <img src="./assets/images/headshot-closeup.jpg" alt="Aishwarya Sarkar" width="80">
         </figure>
 
         <div class="info-content">
           <h1 class="name" title="Aishwarya Sarkar">Aishwarya Sarkar</h1>
 
-          <p class="title">Ph.D. Student</p>
+          <p class="title">Ph.D. Student / Researcher</p>
+          <p class="title">Iowa State University</p>
         </div>
 
         <button class="info_more-btn" data-sidebar-btn>
@@ -151,7 +152,9 @@
           <li class="navbar-item">
             <button class="navbar-link" data-nav-link>Publications</button>
           </li>
-
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link="news">News</button> <!-- Match this with the data-page of News -->
+          </li>
           <!-- <li class="navbar-item">
             <button class="navbar-link" data-nav-link>Blog</button>
           </li> -->
@@ -204,6 +207,21 @@
           <h3 class="h3 service-title">Projects</h3>
 
           <ul class="service-list">
+            <li class="service-item">
+
+              <div class="service-icon-box">
+                <img src="./assets/images/icon-graph.png" alt="design icon" width="40">
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">MassiveGNN</h4>
+
+                <p class="service-item-text">
+                  A novel prefetch and eviction scheme integrated into Amazon's DistDGL to optimize sampling and communication overheads in distributed Graph Neural Network (GNN) training, achieving a 15-40% performance improvement in Open Graph Banchmark (OGB) graph datasets on NERSC's Perlmutter Supercomputer.
+                </p>
+              </div>
+
+            </li>
 
             <li class="service-item">
 
@@ -215,7 +233,9 @@
                 <h4 class="h4 service-item-title">HydroDeep</h4>
 
                 <p class="service-item-text">
-                  The most modern and high-quality design made at a professional level.
+                  A knowledge-guided deep neural network for streamflow prediction with gridded (pixelated) spatiotemporal data, that outperformed benchmark models in the application domain
+                  Proposed four transfer learning approaches that reduce training time by 95% with accuracy improvement of up to 108%.
+
                 </p>
               </div>
 
@@ -231,7 +251,7 @@
                 <h4 class="h4 service-item-title">SnaaP Tag</h4>
 
                 <p class="service-item-text">
-                  High-quality development of sites at the professional level.
+                  Developed a community-based low-cost hybrid energy sensor network system using RFIDs for real-time localization and tracking of objects. Received funding from the Department of Science & Technology, Govt. of India. Patent Filed: 201731014175 (April 2017, India)
                 </p>
               </div>
 
@@ -247,7 +267,7 @@
                 <h4 class="h4 service-item-title">Cerca Trova</h4>
 
                 <p class="service-item-text">
-                  Professional development of applications for iOS and Android.
+                  A real-time rapid response emergency redressal service where an Android Application is designed to bridge the gap between the help seeker and the emergency service provider. 
                 </p>
               </div>
 
@@ -263,7 +283,7 @@
                 <h4 class="h4 service-item-title">TowFi</h4>
 
                 <p class="service-item-text">
-                  I make high-quality photos of any category at a professional level.
+                  Developed a mobile network dead zone warning system, deployed on the IBM Bluemix, which tracks and warns users about network depleted zones in the users’ vicinity using a combination of statistical analysis and interpolation of previously available networks data. Won IBM Bluemix Idea Hack in association with NASSCOM & IAMAI Mobile. Patent Filed: 201731014184 (April 2017, India) 
                 </p>
               </div>
 
@@ -279,7 +299,7 @@
                 <h4 class="h4 service-item-title">Product Recommendation System</h4>
 
                 <p class="service-item-text">
-                  I make high-quality photos of any category at a professional level.
+                  A system that recommends Amazon products to users based on product ratings, only these ratings are predicted by the model itself by analyzing the sentiment from the users’ comments.
                 </p>
               </div>
 
@@ -295,7 +315,7 @@
                 <h4 class="h4 service-item-title">Smart Toilet</h4>
 
                 <p class="service-item-text">
-                  I make high-quality photos of any category at a professional level.
+                  A system based on Raspberry Pi designed to fit in the toilet which is able to detect blood in urine and stool, with an Android Application that will receive alerts if any unnatural amount of blood is present.
                 </p>
               </div>
 
@@ -429,26 +449,22 @@
           <ol class="timeline-list">
 
             <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Iowa State University<text class="timeline-location">, USA</text> </h4>
-              
               <span>2017 — Present</span>
-
-              <p class="timeline-text">
-               Concurrent M.S. and Ph.D. in Computer Science
-              </p>
-              
-
+              <div class="timeline-item-header">
+              <h4 class="h4 timeline-item-title">Iowa State University</h4>
+              <span class="timeline-location">Ames, Iowa, USA</span>
+              </div>
+              <p>Concurrent M.S. and Ph.D. in Computer Science</p>
             </li>
 
             <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Institute of Engineering & Management<text class="timeline-location">, India</text></h4>
-
               <span>2013 — 2017</span>
+              <div class="timeline-item-header">
+              <h4 class="h4 timeline-item-title">Institute of Engineering & Management</h4>
+              <span class="timeline-location">Kolkata, West Bengal, India</span>
+              </div>
 
-              <p class="timeline-text">
-                Bachelor of Technology in Computer Science & Engineering
+              <p>Bachelor of Technology in Computer Science & Engineering
               </p>
 
             </li>
@@ -461,145 +477,111 @@
 
           <div class="title-wrapper">
             <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
+              <ion-icon name="briefcase-outline"></ion-icon>
             </div>
 
-            <h3 class="h3">Experience</h3>
+            <h3 class="h3">Research Positions</h3>
           </div>
 
           <ol class="timeline-list">
+            <li class="timeline-item">
+              <span>May 2024 — Present</span>
+              <div class="timeline-item-header">
+                <h4 class="h4 timeline-item-title">Pacific Northwest National Laboratory</h4>
+                <span class="timeline-location">Richland, Washington, US</span>
+              </div>
+              <p>Ph.D. Intern - High Performance Computing</p>
+            </li>
 
             <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Iowa State University</h4>
-              <p class="timeline-location">Ph.D. Researcher / Graduate Assistant</p>
-
               <span>May 2018 — Present</span>
-
-              <!-- <p class="timeline-text">
-                Nemo enim ipsam voluptatem blanditiis praesentium voluptum delenit atque corrupti, quos dolores et qvuas
-                molestias
-                exceptur.
-              </p> -->
-
+              <div class="timeline-item-header">
+                <h4 class="h4 timeline-item-title">Iowa State University</h4>
+                <span class="timeline-location">Ames, Iowa, USA</span>
+              </div>
+              <p>Ph.D. Researcher / Graduate Assistant</p>
             </li>
-
+            
             <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Pacific Northwest National Laboratory</h4>
-              <p class="timeline-location">Ph.D. Intern - High Performance Computing</p>
-
               <span>May 2023 — Jan 2024</span>
-
-              <!-- <p class="timeline-text">
-                Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
-                quas molestias
-                exceptur.
-              </p> -->
-
+              <div class="timeline-item-header">
+                <h4 class="h4 timeline-item-title">Pacific Northwest National Laboratory</h4>
+                <span class="timeline-location">Richland, Washington, USA</span>
+              </div>
+              <p>Ph.D. Intern - High Performance Computing</p>
             </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Corteva Agriscience</h4>
-              <p class="timeline-location">Software Developer Intern (R&D)</p>
-              <span>May 2022 - Aug 2022</span>
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">MākuSafe </h4>
-              <p class="timeline-location">Machine Learning Analytics Intern</p>
-              <span>Jul 2019 - Aug 2019</span>
-
-              <!-- <p class="timeline-text">
-                Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
-                quas molestias
-                exceptur.
-              </p> -->
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Wipro </h4>
-              <p class="timeline-location">Summer Intern</p>
-              <span>Jul 2016 - Aug 2016</span>
-
-              <!-- <p class="timeline-text">
-                Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
-                quas molestias
-                exceptur.
-              </p> -->
-
-            </li>
-
           </ol>
 
         </section>
+        <section class="timeline">
 
-        <!-- <section class="skill">
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="briefcase-outline"></ion-icon>
+            </div>
 
-          <h3 class="h3 skills-title">My skills</h3>
+            <h3 class="h3">Industry Positions</h3>
+          </div>
 
-          <ul class="skills-list content-card">
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Web design</h5>
-                <data value="80">80%</data>
+          <ol class="timeline-list">
+            <li class="timeline-item">
+              <span>May 2022 - Aug 2022</span>
+              <div class="timeline-item-header">
+                <h4 class="h4 timeline-item-title">Corteva Agriscience</h4>
+                <span class="timeline-location">Johnston, Iowa, USA</span>
               </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 80%;"></div>
-              </div>
-
+              <p>Software Developer Intern (R&D)</p>
             </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Graphic design</h5>
-                <data value="70">70%</data>
+            
+            <li class="timeline-item">
+              <span>Jul 2019 - Aug 2019</span>
+              <div class="timeline-item-header">
+                <h4 class="h4 timeline-item-title">MākuSafe</h4>
+                <span class="timeline-location">West Des Moines, Iowa, USA</span>
               </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 70%;"></div>
-              </div>
-
+              <p>Machine Learning Analytics Intern</p>
             </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Branding</h5>
-                <data value="90">90%</data>
+            
+            <li class="timeline-item">
+              <span>Jul 2016 - Aug 2016</span>
+              <div class="timeline-item-header">
+                <h4 class="h4 timeline-item-title">Wipro</h4>
+                <span class="timeline-location">Kolkata, West Bengal, India</span>
               </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 90%;"></div>
-              </div>
-
+              <p>Summer Intern</p>
             </li>
+          </ol>
+          </section>
+        <section class="timeline">
 
-            <li class="skills-item">
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="briefcase-outline"></ion-icon>
+            </div>
 
-              <div class="title-wrapper">
-                <h5 class="h5">WordPress</h5>
-                <data value="50">50%</data>
-              </div>
+            <h3 class="h3">Teaching Positions</h3>
+          </div>
 
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 50%;"></div>
-              </div>
-
+          <ol class="timeline-list">
+            <li class="timeline-item">
+              <span>Spring 2021 - Spring 2022 (2 Semesters)</span>
+              <h4 class="h4 timeline-item-title">COMS 415/515 Software System Safety Teaching Assistant</h4>
             </li>
-
-          </ul>
-
-        </section> -->
-
+        
+            <li class="timeline-item">
+              <span>Fall 2021 - Fall 2023 (3 Semesters)</span>
+              <h4 class="h4 timeline-item-title">COMS 409/509 Software Requirements Engineering Teaching Assistant</h4>
+            </li>
+            <li class="timeline-item">
+              <span>Spring 2019 - Spring 2021 (5 Semesters)</span>
+              <h4 class="h4 timeline-item-title">COMS 319 Construction of User Interface (UI) Teaching Assistant</h4>
+            </li>
+            <li class="timeline-item">
+              <span>Fall 2017 - Spring 2019 (4 Semesters)</span>
+              <h4 class="h4 timeline-item-title">COMS 113 Spreadsheets and Databases Teaching Assistant</h4>
+            </li>
+          </ol>
+        </section>
       </article>
 
 
@@ -612,22 +594,97 @@
 
       <article class="publication" data-page="publications">
         <header>
-            <h2 class="article-title">Publications</h2>
+            <h2 class="h2 article-title">Publications</h2>
         </header>
         <section class="publications">
-            <ul class="publication-list">
-                <li class="publication-item">
-                    <h3 class="publication-title">Title of Publication 1</h3>
-                    <p class="publication-detail">Details of Publication 1 (e.g., Journal Name, Year)</p>
-                </li>
-                <li class="publication-item">
-                    <h3 class="publication-title">Title of Publication 2</h3>
-                    <p class="publication-detail">Details of Publication 2 (e.g., Journal Name, Year)</p>
-                </li>
-                <!-- Add more publications as needed -->
-            </ul>
+          <ul class="publication-list">
+            <li class="publication-item">
+              <a href="" target="_blank" class="publication-link">
+                <h3 class="publication-title">Enhanced Soups for Graph Neural Networks</h3>
+                <p class="publication-detail">Joseph Zuber, Aishwarya Sarkar, Joseph Jennings, Ali Jannesari. In Proc. of the 14th International Workshop on Graphs, Architectures, Programming, and Learning (GrAPL) co-located with IPDPS 2025, Milan, Italy, pages 1–10, IEEE Computer Society, June 2025. </p>
+              </a>
+            </li>
+            <li class="publication-item">
+              <a href="https://arxiv.org/pdf/2410.22697" target="_blank" class="publication-link">
+                <h3 class="publication-title">MassiveGNN: Efficient Training via Prefetching for Massively Connected Distributed Graphs.</h3>
+                <p class="publication-detail">Aishwarya Sarkar, Sayan Ghosh, Nathan Tallent, Ali Jannesari. In Proc. of the IEEE International Conference on Cluster Computing (CLUSTER), Kobe, Japan, pages 1–11, September 2024.</p>
+              </a>
+            </li>
+            <li class="publication-item">
+              <a href="https://arxiv.org/abs/2402.02018" target="_blank" class="publication-link">
+                <h3 class="publication-title">The Landscape and Challenges of HPC Research and LLMs</h3>
+                <p class="publication-detail">Le Chen, Nesreen K. Ahmed, Akash Dutta, Arijit Bhattacharjee, Sixing Yu, Quazi Ishtiaque Mahmud, Waqwoya Abebe, Hung Phan, Aishwarya Sarkar, Branden Butler, Niranjan Hasabnis, Gal Oren, Vy A. Vo, Juan Pablo Munoz, Theodore L. Willke, Tim Mattson, Ali Jannesari. arXiv preprint arXiv:2402.02018 (2024).</p>
+              </a>
+            </li>
+            <li class="publication-item">
+              <a href="https://ieeexplore.ieee.org/abstract/document/10196650" target="_blank" class="publication-link">
+                <h3 class="publication-title">Domain-Aware Scalable Distributed Training for Geo-Spatiotemporal Data</h3>
+                <p class="publication-detail">Aishwarya Sarkar, Jien Zhang, Chaoqun Lu, Ali Jannesari. 2023 IEEE International Parallel and Distributed Processing Symposium Workshops (IPDPSW). IEEE, 2023.</p>
+              </a>
+            </li>
+          
+            <li class="publication-item">
+              <a href="https://arxiv.org/abs/2301.11787" target="_blank" class="publication-link">
+                <h3 class="publication-title">Accelerating Domain-aware Deep Learning Models with Distributed Training</h3>
+                <p class="publication-detail">Aishwarya Sarkar, Chaoqun Lu, Ali Jannesari. Workshop on Multi-scale, Multi-physics and Coupled Problems on highly parallel systems (MMCP), co-located with HPC Asia, pages 1–5, February 2023.</p>
+              </a>
+            </li>
+          
+            <li class="publication-item">
+              <a href="https://www.proquest.com/openview/b9120c78c47e46bb8c9f6204bfcb46ff/1?pq-origsite=gscholar&cbl=18750&diss=y" target="_blank" class="publication-link">
+                <h3 class="publication-title">Transfer Learning Approaches for Knowledge Discovery in Grid-based Geo-Spatiotemporal Data (Masters Thesis)</h3>
+                <p class="publication-detail">Aishwarya Sarkar, Jien Zhang, Chaoqun Lu, Ali Jannesari. NeurIPS 2021 AI for Science Workshop. </p>
+              </a>
+            </li>
+          
+            <li class="publication-item">
+              <a href="https://arxiv.org/abs/2010.04328" target="_blank" class="publication-link">
+                <h3 class="publication-title">HydroDeep - A Knowledge Guided Deep Neural Network for Geo-Spatiotemporal Data Analysis</h3>
+                <p class="publication-detail">Aishwarya Sarkar, Jien Zhang, Chaoqun Lu, Ali Jannesari. arXiv preprint arXiv:2010.04328 (2020).</p>
+              </a>
+            </li>
+          </ul>
+          
+          
         </section>
-    </article>
+      </article>
+
+      <article class="news" data-page="news">
+        <header>
+          <h2 class="h2 article-title">News</h2>
+        </header>
+      
+        <section class="timeline">
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="newspaper-outline"></ion-icon> <!-- News icon -->
+            </div>
+            <h3 class="h3">Recent Updates</h3>
+          </div>
+      
+          <ol class="timeline-list">
+            <!-- Example News Item -->
+            <li class="timeline-item">
+              <span class="timeline-item-header">Mar 2025 - Paper accepted at IPDPS 2025.</span>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-item-header">Sep 2024 - Presented MassiveGNN at IEEE Cluster 2024.</span>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-item-header">Aug 2024 - Accepted to Student Mentorship Program at IEEE Cluster 2024.</span>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-item-header">Aug 2024 - Received Travel Funding from NSF to attend IEEE Cluster 2024 at Kobe, Japan.</span>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-item-header">July 2024 - Our paper MassiveGNN is accepted at IEEE Cluster 2024.</span>
+            </li>
+          </ol>
+        </section>
+      </article>
+
+      
+      
     
         
 
