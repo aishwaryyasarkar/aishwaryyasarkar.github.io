@@ -2189,6 +2189,15 @@ textarea.form-input::-webkit-resizer { display: none; }
     margin-bottom: 5px;      /* Small gap if they wrap onto new rows */
   }
 
+  .favorite-books {
+    font-size: var(--fs-6); /* Reduce font size */
+    margin-left: 50px;
+  }
+
+  .favorite-books li {
+    font-size: var(--fs-6); /* Adjust individual list items */
+  }
+
   
 
   .navbar-list {
