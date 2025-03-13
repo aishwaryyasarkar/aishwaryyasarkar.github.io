@@ -1,7 +1,8 @@
 <aside class="sidebar" data-sidebar>
-
+  <div class="hamburger" id="hamburger" onclick="toggleSidebarNav()">&#9776;</div>
+  <!-- icon-hamburger.png -->
     <div class="sidebar-info">
-
+      
       <figure class="avatar-box">
         <img src="./assets/images/headshot-closeup.jpg" alt="Aishwarya Sarkar" width="80">
       </figure>
@@ -21,12 +22,8 @@
         </p>
         
       </div>
-
-      <!-- <button class="info_more-btn" data-sidebar-btn>
-        <span>Show Contacts</span>
-
-        <ion-icon name="chevron-down"></ion-icon>
-      </button> -->
+      <!-- Hamburger icon in top-right -->
+    
 
     </div>
 
@@ -98,5 +95,37 @@
       </ul>
 
     </div>
-
+    <!-- Mobile-friendly nav list that toggles on hamburger click -->
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li>
+      <button 
+        class="navbar-link" 
+        onclick="loadPartial('content-placeholder', './partials/about.html')">
+        About
+      </button>
+    </li>
+    <li>
+      <button 
+        class="navbar-link" 
+        onclick="loadPartial('content-placeholder', './partials/resume.html')">
+        Resume
+      </button>
+    </li>
+    <li>
+      <button 
+        class="navbar-link" 
+        onclick="loadPartial('content-placeholder', './partials/publications.html')">
+        Publications
+      </button>
+    </li>
+    <li>
+      <button 
+        class="navbar-link" 
+        onclick="loadPartial('content-placeholder', './partials/news.html').then(initNewsFilter);">
+        News
+      </button>
+    </li>
+  </ul>
   </aside>
+
+  

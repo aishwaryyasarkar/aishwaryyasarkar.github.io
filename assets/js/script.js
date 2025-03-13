@@ -164,3 +164,13 @@ function initNewsFilter() {
     });
   });
 }
+
+function toggleSidebarNav() {
+  const nav = document.getElementById('sidebar-nav');
+  // If it's hidden, show it. If shown, hide it.
+  if (nav.style.display === 'block') {
+    nav.style.display = 'none';
+  } else {
+    nav.style.display = 'block';
+  }
+}

@@ -576,6 +576,15 @@ main {
 
 .navbar-link.active { color: var(--orange-yellow-crayola); }
 
+/* Hamburger icon visible on mobile */
+.hamburger {
+  font-size: 24px;
+  cursor: pointer;
+  display: block;
+  padding: 10px;
+  color: var(--light-gray);
+  display: none;
+}
 
 
 
@@ -2029,10 +2038,63 @@ textarea.form-input::-webkit-resizer { display: none; }
     opacity: 1 !important;
     visibility: visible !important;
   }
+
   .sidebar {
-    margin-top: 75px;
+    margin-top: auto;
     max-height: none !important;
   }
+
+  .sidebar-info {
+    margin-top: auto;
+    max-height: none !important;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* or space-between if you prefer */
+    gap: 15px;
+  }
+  
+  /* Place the hamburger in top-right corner */
+  .hamburger {
+    display: block;
+    position: absolute;
+    top: 5px;    /* push down from top of .sidebar-info */
+    right: 15px;  /* push in from right of .sidebar-info */
+    font-size: 36px;
+    cursor: pointer;
+    color: var(--light-gray);
+    z-index: 6; /* Ensure it’s above other elements */
+  }
+
+  .hamburger:hover,
+  .hamburger:focus {
+    color: var(--orange-yellow-crayola);
+  }
+
+
+  .hamburger:active {
+    color: var(--orange-yellow-crayola);
+    /* You could add a slight transform for a pressed effect */
+    transform: scale(0.95);
+  }
+
+  .sidebar-nav {
+    display: none;           /* hidden by default */
+    margin-top: 10px;        /* some spacing below .sidebar-info_more */
+    border-top: 1px solid var(--jet);
+    background: var(--eerie-black-2);
+    border-radius: 8px;
+  }
+  
+  /* Style each item if needed */
+  .sidebar-nav li {
+    margin-bottom: 0px;
+  }
+  
+  .sidebar-nav li:last-child {
+    margin-bottom: 0;
+  }
+  
 
   .navbar-link {
     font-size: 14px; /* or whatever size you prefer */
@@ -2061,6 +2123,28 @@ textarea.form-input::-webkit-resizer { display: none; }
     text-align: center;      /* Center text + icon within the button */
     margin-bottom: 5px;      /* Small gap if they wrap onto new rows */
   }
+
+  
+
+  .navbar-list {
+    display: none;
+    flex-direction: column;      /* Stack items vertically */
+    position: absolute;          /* Position relative to the navbar */
+    top: 100%;                   /* Right below the navbar */
+    right: 0;
+    width: 100%;                 /* Adjust width as needed */
+    background: #f0f0f0;         /* Same background as the navbar */
+    border-top: 1px solid var(--jet);
+    z-index: 5;
+  }
+
+  /* Optionally, style individual items in the dropdown */
+  .navbar-list .navbar-item {
+    text-align: right;
+    padding: 10px;
+    border-bottom: 1px solid var(--jet);
+  }
+  
 }
 
 
