@@ -647,6 +647,8 @@ main {
 }
 
 
+
+
 /**
  * #testimonials 
  */
@@ -2105,3 +2107,10 @@ textarea.form-input::-webkit-resizer { display: none; }
     margin-bottom: 5px;      /* Small gap if they wrap onto new rows */
   }
 }
+
+
+.service-item-text {
+  --fs-6: 18px;
+  font-size: var(--fs-6) !important;
+}
+
