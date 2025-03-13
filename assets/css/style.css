@@ -308,6 +308,20 @@ article.active {
   font-weight: var(--fw-500);
 }
 
+/* Set the default color for all links */
+a {
+  color: var(--vegas-gold); /* or any color value you prefer */
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+/* Change color when hovered or focused */
+a:hover,
+a:focus {
+  color: var(--white-2); /* or your preferred hover color */
+  text-decoration: underline; /* optional */
+}
+
 .article-title {
   position: relative;
   padding-bottom: 7px;
@@ -668,6 +682,40 @@ main {
   background: var(--eerie-black-2);
   border-radius: 8px;
 }
+
+/**
+ * #hobby 
+ */
+article.hobby .timeline .title-wrapper {
+  margin-bottom: 5px;
+}
+.favorite-books {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0px;
+  margin-left: 65px;
+}
+
+.favorite-books li {
+  position: relative;
+  padding-left: 25px; /* Space for the bullet */
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.favorite-books li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 6px;
+  width: 6px;
+  background: var(--text-gradient-yellow);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px var(--jet);
+}
+
 
 /**
  * #testimonials 
