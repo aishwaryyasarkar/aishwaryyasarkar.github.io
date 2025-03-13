@@ -2045,6 +2045,17 @@ textarea.form-input::-webkit-resizer { display: none; }
     visibility: visible !important;
   }
 
+  article.resume {
+    font-size: 0.8em; /* Scale down all text by 20% */
+  }
+  .timeline-list,
+  .timeline-item,
+  .timeline-item-title,
+  .timeline-location,
+  article.resume p {
+    font-size: 12px; /* Or any desired smaller size */
+  }
+
   .sidebar {
     margin-top: auto;
     max-height: none !important;
