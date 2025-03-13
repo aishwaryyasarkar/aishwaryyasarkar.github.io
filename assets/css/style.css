@@ -661,7 +661,13 @@ main {
 }
 
 
-
+.sidebar-nav {
+  display: none;           /* hidden by default */
+  margin-top: 10px;        /* some spacing below .sidebar-info_more */
+  border-top: 1px solid var(--jet);
+  background: var(--eerie-black-2);
+  border-radius: 8px;
+}
 
 /**
  * #testimonials 
