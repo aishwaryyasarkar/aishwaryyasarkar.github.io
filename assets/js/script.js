@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 // element toggle function
 const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
 
@@ -16,12 +14,49 @@ function initSidebar() {
     });
   }
 }
+async function loadPartial(elementId, partialPath) {
+  try {
+    const response = await fetch(partialPath);
+    if (!response.ok) {
+      throw new Error(`Could not load ${partialPath}`);
+    }
+    const htmlContent = await response.text();
+    document.getElementById(elementId).innerHTML = htmlContent;
+    // Save the partial that was loaded
+    localStorage.setItem('lastActivePage', partialPath);
+    return htmlContent;
+  } catch (error) {
+    console.error('Error loading partial:', error);
+  }
+}
 
 window.addEventListener('DOMContentLoaded', () => {
   loadPartial('sidebar-placeholder', './partials/sidebar.html');
   loadPartial('navbar-placeholder', './partials/navbar.html');
-  loadPartial('content-placeholder', './partials/about.html');
+  
+  // Retrieve the last active page from localStorage, defaulting to About only if none exists.
+  const lastPage = localStorage.getItem('lastActivePage') || './partials/about.html';
+  console.log("Last active page:", lastPage);
+  
+  loadPartial('content-placeholder', lastPage)
+    .then(() => {
+      if (lastPage.includes('news.html')) {
+        initNewsFilter();
+      }
+    })
+    .catch((error) => {
+      console.error("Error loading content partial:", error);
+    });
 });
+
+// window.addEventListener('DOMContentLoaded', () => {
+//   loadPartial('sidebar-placeholder', './partials/sidebar.html');
+//   loadPartial('navbar-placeholder', './partials/navbar.html');
+//   loadPartial('content-placeholder', './partials/about.html')
+// });
+
+
+
 
 // testimonials variables
 const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
@@ -86,38 +121,46 @@ for (let i = 0; i < navigationLinks.length; i++) {
   });
 }
 
+function markLastVisibleTimelineItem() {
+  const items = document.querySelectorAll('.timeline-item');
+  // Remove .last-visible from all items first
+  items.forEach(item => item.classList.remove('last-visible'));
+
+  // Filter only those that are not hidden
+  const visibleItems = [...items].filter(item => item.style.display !== 'none');
+
+  // Add .last-visible to the final visible item
+  if (visibleItems.length > 0) {
+    const last = visibleItems[visibleItems.length - 1];
+    last.classList.add('last-visible');
+  }
+}
 
 function initNewsFilter() {
   console.log("initNewsFilter running");
   const filterButtons = document.querySelectorAll('.news-filter .filter-btn');
   const timelineItems = document.querySelectorAll('.timeline-item');
   
-  // console.log("Found filterButtons:", filterButtons);
-  // console.log("Found timelineItems:", timelineItems);
-  
   filterButtons.forEach(button => {
     button.addEventListener('click', () => {
       const filterValue = button.getAttribute('data-filter');
-      // console.log('Filter clicked:', filterValue);
       
-      // Remove 'active' from all buttons, then add to clicked one
+      // Remove 'active' from all filter buttons
       filterButtons.forEach(btn => btn.classList.remove('active'));
       button.classList.add('active');
 
-      // Loop through timeline items and show/hide based on data-category
+      // Show/hide timeline items
       timelineItems.forEach(item => {
         const itemCategories = item.getAttribute('data-category').split(' ');
         if (filterValue === 'all' || itemCategories.includes(filterValue)) {
           item.style.display = 'list-item';
-          // console.log("Showing item:", item.textContent);
         } else {
           item.style.display = 'none';
-          // console.log("Hiding item:", item.textContent);
         }
       });
+
+      // 3. Mark the new last visible item after filtering
+      markLastVisibleTimelineItem();
     });
   });
 }
-
-
-
