@@ -422,6 +422,14 @@ main {
   padding: 3px 12px;
   border-radius: 8px;
 }
+/* Target the icon inside .title or use a specific class like .inline-icon */
+.title ion-icon, 
+.inline-icon {
+  display: inline-block;      /* ensures icon flows with text */
+  vertical-align: middle;     /* aligns icon with text baseline */
+  margin-right: 4px;          /* optional spacing */
+}
+
 
 .info_more-btn {
   position: absolute;
@@ -633,7 +641,7 @@ main {
 
 .service-item-text {
   color: var(--light-gray);
-  font-size: var(--fs-6);
+  font-size: var(--fs-8);
   font-weight: var(--fw-3);
   line-height: 1.6;
 }
@@ -2032,6 +2040,7 @@ textarea.form-input::-webkit-resizer { display: none; }
     align-items: center !important;
   }
 }
+
 
 /* Increase icon size for all social links */
 .social-link ion-icon {
