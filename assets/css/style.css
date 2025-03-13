@@ -2000,3 +2000,57 @@ textarea.form-input::-webkit-resizer { display: none; }
   font-size: 30px; /* or any size you want */
 }
 
+.news-filter {
+  display: flex;
+  gap: 10px;               /* Space between buttons */
+  justify-content: center; /* Center the buttons horizontally */
+  align-items: center;
+  margin-bottom: 1em;      /* Spacing below the filter section */
+}
+
+.filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;                /* Space between icon and text */
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--onyx); /* Adjust as needed */
+  color: var(--white-2);         /* Adjust as needed */
+  font-size: var(--fs-6);
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.filter-btn.active {
+  background-color: var(--orange-yellow-crayola);
+  color: var(--white-2);
+}
+
+.filter-btn:hover {
+  background-color: var(--jet);
+}
+
+/* Adjust the icon size inside filter buttons */
+.filter-btn ion-icon {
+  font-size: 18px;  /* Change this value as needed */
+}
+
+/* 
+ * Mobile-friendly wrapping: 
+ * On screens <= 600px, allow buttons to wrap 
+ * onto multiple rows and stretch if needed.
+ */
+ @media (max-width: 600px) {
+  .news-filter {
+    flex-wrap: wrap;         /* Buttons can wrap to new lines */
+    justify-content: center; /* Keep them centered */
+  }
+  
+  .filter-btn {
+    flex: 1 1 auto;          /* Let each button grow/shrink */
+    min-width: 90px;         /* Optional: a min width to avoid being too small */
+    text-align: center;      /* Center text + icon within the button */
+    margin-bottom: 5px;      /* Small gap if they wrap onto new rows */
+  }
+}

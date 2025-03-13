@@ -57,17 +57,6 @@
         console.error('Error loading partial:', error);
       }
     }
-
-    // On page load, load the sidebar, navbar, and default content (About section).
-    window.addEventListener('DOMContentLoaded', () => {
-      loadPartial('sidebar-placeholder', './partials/sidebar.html');
-      loadPartial('navbar-placeholder', './partials/navbar.html');
-      loadPartial('content-placeholder', './partials/about.html');
-    });
-    
-    // The nav buttons (in navbar.html) will call loadPartial() to update the content.
-    // For example, in your partials/navbar.html, you might have:
-    // <button onclick="loadPartial('content-placeholder', './partials/resume.html')">Resume</button>
   </script>
 
 </body>

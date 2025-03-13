@@ -47,12 +47,12 @@
           from your original code, just include it here. 
         -->
         <button 
-          class="navbar-link" 
-          data-nav-link="news" 
-          onclick="loadPartial('content-placeholder', './partials/news.html')"
-        >
-          News
-        </button>
+        class="navbar-link" 
+        data-nav-link="news" 
+        onclick="loadPartial('content-placeholder', './partials/news.html').then(initNewsFilter);"
+      >
+        News
+      </button>
       </li>
    
       <!-- <li class="navbar-item">

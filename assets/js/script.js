@@ -5,16 +5,23 @@
 // element toggle function
 const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
 
+function initSidebar() {
+  const sidebar = document.querySelector("[data-sidebar]");
+  const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
+  // If these elements exist, attach event listeners
+  if (sidebar && sidebarBtn) {
+    sidebarBtn.addEventListener("click", function () {
+      sidebar.classList.toggle("active");
+    });
+  }
+}
 
-// sidebar variables
-const sidebar = document.querySelector("[data-sidebar]");
-const sidebarBtn = document.querySelector("[data-sidebar-btn]");
-
-// sidebar toggle functionality for mobile
-sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
-
-
+window.addEventListener('DOMContentLoaded', () => {
+  loadPartial('sidebar-placeholder', './partials/sidebar.html');
+  loadPartial('navbar-placeholder', './partials/navbar.html');
+  loadPartial('content-placeholder', './partials/about.html');
+});
 
 // testimonials variables
 const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
@@ -33,85 +40,6 @@ const testimonialsModalFunc = function () {
   overlay.classList.toggle("active");
 }
 
-// add click event to all modal items
-// for (let i = 0; i < testimonialsItem.length; i++) {
-
-//   testimonialsItem[i].addEventListener("click", function () {
-
-//     modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
-//     modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
-//     modalTitle.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
-//     modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
-
-//     testimonialsModalFunc();
-
-//   });
-
-// }
-
-// add click event to modal close button
-// modalCloseBtn.addEventListener("click", testimonialsModalFunc);
-// overlay.addEventListener("click", testimonialsModalFunc);
-
-
-
-// custom select variables
-// const select = document.querySelector("[data-select]");
-// const selectItems = document.querySelectorAll("[data-select-item]");
-// const selectValue = document.querySelector("[data-selecct-value]");
-// const filterBtn = document.querySelectorAll("[data-filter-btn]");
-
-// select.addEventListener("click", function () { elementToggleFunc(this); });
-
-// // add event in all select items
-// for (let i = 0; i < selectItems.length; i++) {
-//   selectItems[i].addEventListener("click", function () {
-
-//     let selectedValue = this.innerText.toLowerCase();
-//     selectValue.innerText = this.innerText;
-//     elementToggleFunc(select);
-//     filterFunc(selectedValue);
-
-//   });
-// }
-
-// filter variables
-// const filterItems = document.querySelectorAll("[data-filter-item]");
-
-// const filterFunc = function (selectedValue) {
-
-//   for (let i = 0; i < filterItems.length; i++) {
-
-//     if (selectedValue === "all") {
-//       filterItems[i].classList.add("active");
-//     } else if (selectedValue === filterItems[i].dataset.category) {
-//       filterItems[i].classList.add("active");
-//     } else {
-//       filterItems[i].classList.remove("active");
-//     }
-
-//   }
-
-// }
-
-// add event in all filter button items for large screen
-// let lastClickedBtn = filterBtn[0];
-
-// for (let i = 0; i < filterBtn.length; i++) {
-
-//   filterBtn[i].addEventListener("click", function () {
-
-//     let selectedValue = this.innerText.toLowerCase();
-//     selectValue.innerText = this.innerText;
-//     filterFunc(selectedValue);
-
-//     lastClickedBtn.classList.remove("active");
-//     this.classList.add("active");
-//     lastClickedBtn = this;
-
-//   });
-
-// }
 
 
 
@@ -157,3 +85,39 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+
+function initNewsFilter() {
+  console.log("initNewsFilter running");
+  const filterButtons = document.querySelectorAll('.news-filter .filter-btn');
+  const timelineItems = document.querySelectorAll('.timeline-item');
+  
+  // console.log("Found filterButtons:", filterButtons);
+  // console.log("Found timelineItems:", timelineItems);
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filterValue = button.getAttribute('data-filter');
+      // console.log('Filter clicked:', filterValue);
+      
+      // Remove 'active' from all buttons, then add to clicked one
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // Loop through timeline items and show/hide based on data-category
+      timelineItems.forEach(item => {
+        const itemCategories = item.getAttribute('data-category').split(' ');
+        if (filterValue === 'all' || itemCategories.includes(filterValue)) {
+          item.style.display = 'list-item';
+          // console.log("Showing item:", item.textContent);
+        } else {
+          item.style.display = 'none';
+          // console.log("Hiding item:", item.textContent);
+        }
+      });
+    });
+  });
+}
+
+
+
