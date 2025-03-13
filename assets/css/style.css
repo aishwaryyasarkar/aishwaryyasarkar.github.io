@@ -2036,7 +2036,11 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .sidebar-info { flex-direction: column; }
 
-  .avatar-box img { width: 150px; }
+  .avatar-box img { 
+    width: 200px; 
+    border-radius: 20px; /* Adjust the value for more/less roundness */
+    overflow: hidden;
+  }
 
   .info-content .name {
     white-space: nowrap;
@@ -2196,6 +2200,12 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .favorite-books li {
     font-size: var(--fs-6); /* Adjust individual list items */
+  }
+
+  .avatar-box img { 
+    width: 120px; 
+    border-radius: 20px; /* Adjust the value for more/less roundness */
+    overflow: hidden;
   }
 
   
