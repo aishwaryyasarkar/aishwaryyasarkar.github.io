@@ -641,7 +641,7 @@ main {
 
 .service-item-text {
   color: var(--light-gray);
-  font-size: var(--fs-8);
+  font-size: var(--fs-6);
   font-weight: var(--fw-3);
   line-height: 1.6;
 }
@@ -1498,6 +1498,8 @@ textarea.form-input::-webkit-resizer { display: none; }
    */
 
   .navbar { 
+    top: 0;
+    bottom: auto; 
     border-radius: 20px 20px 0 0; }
 
   .navbar-list { gap: 20px; }
