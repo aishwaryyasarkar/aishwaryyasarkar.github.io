@@ -2011,14 +2011,18 @@ textarea.form-input::-webkit-resizer { display: none; }
     visibility: visible !important;
   }
   .sidebar {
-    margin-top: 60px;
+    margin-top: 75px;
     max-height: none !important;
   }
 
-  @media (max-width: 600px) {
-    .navbar-link {
-      font-size: 14px; /* or whatever size you prefer */
-    }
+  .navbar-link {
+    font-size: 14px; /* or whatever size you prefer */
+  }
+
+  .navbar {
+    top: 0;
+    bottom: auto; 
+    border-radius: 12px 12px 12px 12px; 
   }
   
 
@@ -2034,11 +2038,7 @@ textarea.form-input::-webkit-resizer { display: none; }
   font-size: 30px; /* or any size you want */
 }
 
-.navbar {
-  top: 0;
-  bottom: auto;
-  border-radius: 0 0 12px 12px; 
-}
+
 
 .news-filter {
   display: flex;
