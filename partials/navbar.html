@@ -1,5 +1,8 @@
 <!-- partials/navbar.html -->
 <nav class="navbar">
+  <!-- <div class="hamburger" id="hamburger" onclick="toggleNavbar()">
+    &#9776;
+  </div> -->
     <ul class="navbar-list">
   
       <!-- ABOUT -->
@@ -52,19 +55,9 @@
         data-nav-link="news" 
         onclick="loadPartial('content-placeholder', './partials/news.html').then(initNewsFilter);"
       >
-        News
+        Journey
       </button>
       </li>
-   
-      <!-- <li class="navbar-item">
-        <button 
-          class="navbar-link" 
-          data-nav-link 
-          onclick="loadPartial('content-placeholder', './partials/contact.html')"
-        >
-          Contact
-        </button>
-      </li> -->
   
     </ul>
   </nav>
