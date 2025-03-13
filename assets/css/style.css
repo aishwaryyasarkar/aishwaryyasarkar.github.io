@@ -2108,9 +2108,3 @@ textarea.form-input::-webkit-resizer { display: none; }
   }
 }
 
-
-.service-item-text {
-  --fs-6: 18px;
-  font-size: var(--fs-6) !important;
-}
-
