@@ -70,10 +70,10 @@ window.addEventListener("DOMContentLoaded", () => {
       // Load the main content partial
       loadPartial("content-placeholder", lastPage, false)
         .then(() => {
-          // If it's news.html, call initNewsFilter
-          if (lastPage.includes("news.html")) {
+          if (lastPage.includes("journey.html")) {
             initNewsFilter();
           }
+          updateActiveNav();
         })
         .catch((error) => {
           console.error("Error loading content partial:", error);
@@ -84,21 +84,35 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-/**
- * (OPTIONAL) If you want the browser back/forward buttons to also load partials:
- * Listen for 'hashchange' and load the correct partial each time the hash changes.
- */
+
+
 window.addEventListener("hashchange", () => {
-  const section = window.location.hash.substring(1); // e.g. "publications"
+  const section = window.location.hash.substring(1); 
   if (section) {
     loadPartial("content-placeholder", `./partials/${section}.html`)
       .then(() => {
-        if (section === "news") {
+        if (section === "journey") {
           initNewsFilter();
         }
+        updateActiveNav();
       });
   }
 });
+
+
+// Update the active state on navbar buttons based on the current URL hash
+function updateActiveNav() {
+  const navButtons = document.querySelectorAll('.navbar-link');
+  const currentSection = window.location.hash.substring(1) || 'about';
+  navButtons.forEach(btn => {
+    btn.classList.remove('active');
+    // You can match by text content (make sure the text matches your section names)
+    if (btn.textContent.trim().toLowerCase() === currentSection.toLowerCase()) {
+      btn.classList.add('active');
+    }
+  });
+}
+
 
 // window.addEventListener('DOMContentLoaded', () => {
 //   loadPartial('sidebar-placeholder', './partials/sidebar.html');
