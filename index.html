@@ -12,6 +12,7 @@
     gtag('config', 'G-DCMLBXD6ZV');
   </script>
   <!-- End Google Tag Manager -->
+  
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,23 +51,6 @@
   <!-- Ionicons -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-  <!-- Inline Script to Load Partials -->
-  <script>
-    // Helper function to load an HTML partial into a specified element.
-    async function loadPartial(elementId, partialPath) {
-      try {
-        const response = await fetch(partialPath);
-        if (!response.ok) {
-          throw new Error(`Could not load ${partialPath}`);
-        }
-        const htmlContent = await response.text();
-        document.getElementById(elementId).innerHTML = htmlContent;
-      } catch (error) {
-        console.error('Error loading partial:', error);
-      }
-    }
-  </script>
 
 </body>
 

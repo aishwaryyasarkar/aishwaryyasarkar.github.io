@@ -14,7 +14,9 @@ function initSidebar() {
     });
   }
 }
-async function loadPartial(elementId, partialPath) {
+
+
+async function loadPartial(elementId, partialPath, updateHash = true) {
   try {
     const response = await fetch(partialPath);
     if (!response.ok) {
@@ -22,31 +24,80 @@ async function loadPartial(elementId, partialPath) {
     }
     const htmlContent = await response.text();
     document.getElementById(elementId).innerHTML = htmlContent;
-    // Save the partial that was loaded
-    localStorage.setItem('lastActivePage', partialPath);
+
+    // Save the partial that was loaded for next time
+    if (elementId === "content-placeholder") {
+      localStorage.setItem("lastActivePage", partialPath);
+    }
+
+    // Update the URL hash if requested (so the address changes to #about, etc.)
+    if (updateHash && elementId === "content-placeholder") {
+      const fileName = partialPath.split("/").pop(); // e.g. "about.html"
+      const section = fileName.replace(".html", ""); // e.g. "about"
+      window.location.hash = section; 
+      // or use history.pushState if you prefer:
+      // history.pushState({section}, "", "#" + section);
+    }
+
     return htmlContent;
   } catch (error) {
-    console.error('Error loading partial:', error);
+    console.error("Error loading partial:", error);
   }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  loadPartial('sidebar-placeholder', './partials/sidebar.html');
-  loadPartial('navbar-placeholder', './partials/navbar.html');
+/**
+ * On DOMContentLoaded:
+ *  1. Load sidebar and navbar
+ *  2. Check the URL hash (if present) or localStorage to figure out which partial to show
+ *  3. If the partial is "news", call initNewsFilter
+ */
+window.addEventListener("DOMContentLoaded", () => {
+  // Load sidebar & navbar, no need to update hash for those
+  loadPartial("sidebar-placeholder", "./partials/sidebar.html", false);
   
-  // Retrieve the last active page from localStorage, defaulting to About only if none exists.
-  const lastPage = localStorage.getItem('lastActivePage') || './partials/about.html';
-  console.log("Last active page:", lastPage);
-  
-  loadPartial('content-placeholder', lastPage)
+  // Load navbar first; once that's done, proceed
+  loadPartial("navbar-placeholder", "./partials/navbar.html", false)
     .then(() => {
-      if (lastPage.includes('news.html')) {
-        initNewsFilter();
+      // Figure out which partial to load into #content-placeholder
+      let lastPage = localStorage.getItem("lastActivePage") || "./partials/about.html";
+
+      // If the URL has a hash (e.g. #resume), use that
+      if (window.location.hash) {
+        const section = window.location.hash.substring(1); // remove '#'
+        lastPage = `./partials/${section}.html`;
       }
+
+      // Load the main content partial
+      loadPartial("content-placeholder", lastPage, false)
+        .then(() => {
+          // If it's news.html, call initNewsFilter
+          if (lastPage.includes("news.html")) {
+            initNewsFilter();
+          }
+        })
+        .catch((error) => {
+          console.error("Error loading content partial:", error);
+        });
     })
-    .catch((error) => {
-      console.error("Error loading content partial:", error);
+    .catch((err) => {
+      console.error("Error loading navbar partial:", err);
     });
+});
+
+/**
+ * (OPTIONAL) If you want the browser back/forward buttons to also load partials:
+ * Listen for 'hashchange' and load the correct partial each time the hash changes.
+ */
+window.addEventListener("hashchange", () => {
+  const section = window.location.hash.substring(1); // e.g. "publications"
+  if (section) {
+    loadPartial("content-placeholder", `./partials/${section}.html`)
+      .then(() => {
+        if (section === "news") {
+          initNewsFilter();
+        }
+      });
+  }
 });
 
 // window.addEventListener('DOMContentLoaded', () => {
@@ -97,29 +148,6 @@ for (let i = 0; i < formInputs.length; i++) {
   });
 }
 
-
-
-// page navigation variables
-const navigationLinks = document.querySelectorAll("[data-nav-link]");
-const pages = document.querySelectorAll("[data-page]");
-
-// add event to all nav link
-for (let i = 0; i < navigationLinks.length; i++) {
-  navigationLinks[i].addEventListener("click", function () {
-
-    for (let i = 0; i < pages.length; i++) {
-      if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
-        pages[i].classList.add("active");
-        navigationLinks[i].classList.add("active");
-        window.scrollTo(0, 0);
-      } else {
-        pages[i].classList.remove("active");
-        navigationLinks[i].classList.remove("active");
-      }
-    }
-
-  });
-}
 
 function markLastVisibleTimelineItem() {
   const items = document.querySelectorAll('.timeline-item');
