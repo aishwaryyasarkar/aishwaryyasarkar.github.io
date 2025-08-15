@@ -2456,3 +2456,4 @@ article.resume a:hover {
   /* Optional: link hover contrast in dark */
   .dark-mode a:hover,
   .dark-mode a:focus { color: var(--white-2); }
+

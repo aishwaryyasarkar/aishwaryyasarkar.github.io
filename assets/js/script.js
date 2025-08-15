@@ -269,12 +269,40 @@ function initThemeToggle() {
   const input = document.getElementById('theme-toggle');
   if (!input) return;
 
-  // Sync checkbox with current state
-  input.checked = document.documentElement.classList.contains('dark-mode');
+  const media = window.matchMedia('(prefers-color-scheme: dark)');
 
-  input.addEventListener('change', () => {
-    const isDark = input.checked;
+  // Helper: apply a theme and update UI
+  const applyTheme = (mode) => {
+    const isDark = mode === 'dark';
     document.documentElement.classList.toggle('dark-mode', isDark);
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    input.checked = isDark;
+  };
+
+  // 1) Determine initial mode
+  let stored = localStorage.getItem('theme'); // 'dark' | 'light' | null
+  if (stored === 'dark' || stored === 'light') {
+    applyTheme(stored);         // user override
+  } else {
+    applyTheme(media.matches ? 'dark' : 'light'); // system default
+  }
+
+  // 2) React to slider changes (this sets a user override)
+  input.addEventListener('change', () => {
+    const mode = input.checked ? 'dark' : 'light';
+    localStorage.setItem('theme', mode);
+    applyTheme(mode);
   });
+
+  // 3) React to system changes ONLY if there’s no user override
+  const onSystemChange = (e) => {
+    if (!localStorage.getItem('theme')) {
+      applyTheme(e.matches ? 'dark' : 'light');
+    }
+  };
+  // Modern & legacy listener support
+  if (typeof media.addEventListener === 'function') {
+    media.addEventListener('change', onSystemChange);
+  } else if (typeof media.addListener === 'function') {
+    media.addListener(onSystemChange);
+  }
 }

@@ -10,6 +10,15 @@
     gtag('js', new Date());
 
     gtag('config', 'G-DCMLBXD6ZV');
+
+    (function () {
+    // If user has chosen, respect it; otherwise follow system
+    var stored = localStorage.getItem('theme'); // 'dark' | 'light' | null
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var useDark = stored ? (stored === 'dark') : prefersDark;
+    document.documentElement.classList.toggle('dark-mode', useDark);
+  })();
+
   </script>
   <!-- End Google Tag Manager -->
   
