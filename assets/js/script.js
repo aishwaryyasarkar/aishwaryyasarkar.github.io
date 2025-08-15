@@ -51,6 +51,8 @@ async function loadPartial(elementId, partialPath, updateHash = true) {
  *  2. Check the URL hash (if present) or localStorage to figure out which partial to show
  *  3. If the partial is "news", call initNewsFilter
  */
+const isFirstVisit = !sessionStorage.getItem('visited');
+if (isFirstVisit) sessionStorage.setItem('visited', '1');
 window.addEventListener("DOMContentLoaded", () => {
   // Load sidebar & navbar, no need to update hash for those
   loadPartial("sidebar-placeholder", "./partials/sidebar.html", false);
@@ -59,13 +61,15 @@ window.addEventListener("DOMContentLoaded", () => {
   loadPartial("navbar-placeholder", "./partials/navbar.html", false)
     .then(() => {
       initThemeToggle();
-      // Figure out which partial to load into #content-placeholder
-      let lastPage = localStorage.getItem("lastActivePage") || "./partials/about.html";
+      let lastPage = "./partials/about.html";
 
-      // If the URL has a hash (e.g. #resume), use that
       if (window.location.hash) {
-        const section = window.location.hash.substring(1); // remove '#'
+        const section = window.location.hash.substring(1);
         lastPage = `./partials/${section}.html`;
+      } else if (!isFirstVisit) {
+        // After the very first load in this tab, allow restoring the last page
+        const saved = localStorage.getItem("lastActivePage");
+        if (saved) lastPage = saved;
       }
 
       // Load the main content partial
