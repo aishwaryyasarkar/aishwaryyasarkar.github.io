@@ -647,8 +647,13 @@ main {
   border-radius: 10px; /* Adjust border radius if needed */
   background: var(--eerie-black-2); /* Adjust background color if needed */
   box-shadow: var(--shadow-1); /* Add shadow for styling */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.service-item:hover {
+  transform: scale(1.02);                    /* or: translateY(-2px) scale(1.01) */
+  box-shadow: var(--shadow-3);
+}
 
 .service-item::before {
   content: "";
@@ -1598,6 +1603,7 @@ textarea.form-input::-webkit-resizer { display: none; }
     align-items: flex-start;
     gap: 18px;
     padding: 30px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   .service-icon-box {
