@@ -58,6 +58,7 @@ window.addEventListener("DOMContentLoaded", () => {
   // Load navbar first; once that's done, proceed
   loadPartial("navbar-placeholder", "./partials/navbar.html", false)
     .then(() => {
+      initThemeToggle();
       // Figure out which partial to load into #content-placeholder
       let lastPage = localStorage.getItem("lastActivePage") || "./partials/about.html";
 
@@ -92,17 +93,21 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 window.addEventListener("hashchange", () => {
-  const section = window.location.hash.substring(1); 
-  if (section) {
-    loadPartial("content-placeholder", `./partials/${section}.html`)
-      .then(() => {
-        if (section === "journey") {
-          initNewsFilter();
-        }
-        updateActiveNav();
-      });
-  }
+  const section = window.location.hash.substring(1);
+  if (!section) return;
+
+  loadPartial("content-placeholder", `./partials/${section}.html`)
+    .then(async () => {
+      if (section === "journey") {
+        initNewsFilter();
+      }
+      if (section === "about") {
+        await ensureRecentUpdates();
+      }
+      updateActiveNav();
+    });
 });
+
 
 
 // Update the active state on navbar buttons based on the current URL hash
@@ -184,33 +189,33 @@ function markLastVisibleTimelineItem() {
 }
 
 function initNewsFilter() {
-  console.log("initNewsFilter running");
-  const filterButtons = document.querySelectorAll('.news-filter .filter-btn');
-  const timelineItems = document.querySelectorAll('.timeline-item');
-  
+  const newsArticle = document.querySelector('article.news');
+  if (!newsArticle) return;
+
+  const filterButtons = newsArticle.querySelectorAll('.news-filter .filter-btn');
+  const timelineItems = newsArticle.querySelectorAll('.timeline-item');
+
   filterButtons.forEach(button => {
     button.addEventListener('click', () => {
       const filterValue = button.getAttribute('data-filter');
-      
-      // Remove 'active' from all filter buttons
+
+      // only mess with buttons in this article
       filterButtons.forEach(btn => btn.classList.remove('active'));
       button.classList.add('active');
 
-      // Show/hide timeline items
+      // only mess with items in this article
       timelineItems.forEach(item => {
         const itemCategories = item.getAttribute('data-category').split(' ');
-        if (filterValue === 'all' || itemCategories.includes(filterValue)) {
-          item.style.display = 'list-item';
-        } else {
-          item.style.display = 'none';
-        }
+        item.style.display = (filterValue === 'all' || itemCategories.includes(filterValue))
+          ? 'list-item'
+          : 'none';
       });
 
-      // 3. Mark the new last visible item after filtering
       markLastVisibleTimelineItem();
     });
   });
 }
+
 
 function toggleSidebarNav() {
   const nav = document.getElementById('sidebar-nav');
@@ -224,17 +229,52 @@ function toggleSidebarNav() {
 
 function insertRecentUpdates() {
   const updatesList = document.querySelector('#recent-updates .timeline-list');
-  const journeyList = document.querySelector('article.news .timeline-list');
-
+  const journeyList = document.querySelector('#hidden-journey-placeholder article.news .timeline-list');
   if (!updatesList || !journeyList) return;
 
   updatesList.innerHTML = '';
 
-  // Get the first two recent journey items
+  // reset any lingering inline styles just in case
+  journeyList.querySelectorAll('.timeline-item').forEach(i => i.style.display = 'list-item');
+
+  // take top two (DOM order)
   const mostRecent = Array.from(journeyList.querySelectorAll('.timeline-item')).slice(0, 2);
 
   mostRecent.forEach(item => {
     const clone = item.cloneNode(true);
+    // make sure clones are visible
+    clone.style.display = 'list-item';
     updatesList.appendChild(clone);
+  });
+}
+
+
+async function ensureRecentUpdates() {
+  // Only do work if we're on About and the container exists
+  const updatesList = document.querySelector('#recent-updates .timeline-list');
+  if (!updatesList) return;
+
+  // If the hidden journey isn't loaded (or got replaced), load it first
+  let journeyList = document.querySelector('#hidden-journey-placeholder article.news .timeline-list');
+  if (!journeyList || journeyList.children.length === 0) {
+    await loadPartial('hidden-journey-placeholder', './partials/journey.html', false);
+  }
+
+  // Now (re)insert the two most recent items
+  insertRecentUpdates();
+}
+
+
+function initThemeToggle() {
+  const input = document.getElementById('theme-toggle');
+  if (!input) return;
+
+  // Sync checkbox with current state
+  input.checked = document.documentElement.classList.contains('dark-mode');
+
+  input.addEventListener('change', () => {
+    const isDark = input.checked;
+    document.documentElement.classList.toggle('dark-mode', isDark);
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
   });
 }

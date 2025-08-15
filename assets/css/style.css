@@ -401,7 +401,9 @@ main {
   margin-bottom: 15px;
   max-height: 112px;
   overflow: hidden;
-  transition: var(--transition-2);
+  transition: max-height var(--transition-2), 
+              box-shadow var(--transition-1), 
+              border-color var(--transition-1);
 }
 
 .sidebar.active { max-height: 405px; }
@@ -1420,43 +1422,90 @@ textarea.form-input::-webkit-resizer { display: none; }
 
 .form-btn:disabled:hover::before { background: var(--bg-gradient-jet); }
 
-.recent-updates { margin: 20px 0 10px; }
-
-.updates-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 12px;
+/* Toggle switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 24px;
+  vertical-align: middle;
 }
 
-.update-item {
-  border: 1px solid var(--jet);
-  border-radius: 10px;
-  background: var(--eerie-black-2);
-  box-shadow: var(--shadow-1);
-  padding: 14px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  will-change: transform;
-  transform-origin: center;
+/* hide native checkbox but keep it focusable/accessible */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+/* track */
+.switch .slider {
+  position: absolute;
+  inset: 0;
   cursor: pointer;
+  background: var(--onyx);
+  border: 1px solid var(--jet);
+  border-radius: 999px;
+  box-shadow: inset 0 2px 4px hsla(0,0%,0%,0.08);
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
-.update-item:hover {
-  transform: scale(1.02);
-  box-shadow: var(--shadow-3);
+/* knob */
+.switch .slider::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--eerie-black-2);
+  border-radius: 50%;
+  box-shadow: 0 1px 2px hsla(0,0%,0%,0.2);
+  transition: transform 0.25s ease;
 }
 
-.update-item .timeline-item-header {
-  font-weight: var(--fw-500);
+/* Light mode overrides */
+:root:not(.dark-mode) .switch .slider {
+  background: #e0e0e0; /* slightly darker track */
+  border: 1px solid #b5b5b5;
+  box-shadow: inset 0 2px 4px hsla(0,0%,0%,0.15);
+}
+
+:root:not(.dark-mode) .switch .slider::before {
+  background: #ffffff; /* white knob */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+
+/* Resume text colors (works for both themes via vars) */
+article.resume p { 
+  color: var(--light-gray);        /* body copy in timeline */
+}
+
+article.resume .timeline-item-title {
+  color: var(--white-2);           /* keep titles bright */
+}
+
+article.resume .timeline-location {
+  color: var(--light-gray);        /* right-aligned location text */
+  font-weight: var(--fw-300);
+}
+
+/* Optional: make links in resume pop a bit more */
+article.resume a {
+  color: var(--vegas-gold);
+}
+article.resume a:hover { 
   color: var(--white-2);
-  margin-bottom: 6px;
 }
 
-.update-item .service-item-text {
-  margin: 0;
+.info-content .title {
+  background: var(--eerie-black-2);
+  color: var(--white-1);
+  box-shadow: none;
 }
-
 
 
 
@@ -2316,3 +2365,94 @@ textarea.form-input::-webkit-resizer { display: none; }
 .filter-btn ion-icon {
   font-size: 18px;  /* Change this value as needed */
 }
+
+/* optional icons */
+.switch .slider::after {
+  content: "🌙";
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  pointer-events: none;
+  transition: left 0.25s ease, right 0.25s ease, content 0.25s ease;
+}
+
+/* checked (dark mode on) */
+.switch input:checked + .slider {
+  background: hsl(240, 3%, 22%);
+  border-color: hsl(240, 3%, 30%);
+}
+.switch input:checked + .slider::before {
+  transform: translate(22px, -50%); /* slide knob right */
+}
+.switch input:checked + .slider::after {
+  content: "☀️";
+  left: 6px; right: auto;
+}
+
+
+/* =========================
+   DARK THEME — variable overrides
+   ========================= */
+   .dark-mode {
+    /* palette */
+    --smoky-black: hsl(0, 0%, 6%);      /* body bg */
+    --eerie-black-1: hsl(240, 3%, 12%);
+    --eerie-black-2: hsl(240, 3%, 14%); /* card/bg surfaces */
+    --jet: hsl(0, 0%, 26%);             /* borders/dividers */
+    --white-1: hsl(0, 0%, 100%);        /* text accents */
+    --white-2: hsl(0, 0%, 95%);         /* headings */
+    --light-gray: hsl(0, 0%, 80%);      /* body text */
+    --light-gray-70: hsla(0, 0%, 80%, 0.7);
+    --orange-yellow-crayola: hsl(45, 100%, 55%);
+  
+    /* darker gradients & shadows (optional but nicer) */
+    --bg-gradient-onyx: linear-gradient(to bottom right, hsl(240, 3%, 16%) 3%, hsl(240, 3%, 12%) 97%);
+    --bg-gradient-jet: linear-gradient(to bottom right, hsla(240, 3%, 22%, 0.35) 0%, hsla(240, 3%, 16%, 0) 100%), hsl(240, 3%, 16%);
+    --shadow-1: -4px 8px 24px hsla(0,0%,0%,0.35);
+    --shadow-2: 0 16px 30px hsla(0,0%,0%,0.40);
+    --shadow-3: 0 16px 40px hsla(0,0%,0%,0.45);
+  }
+  
+  /* Your navbar has a hard-coded light bg; override it in dark mode */
+  .dark-mode .navbar {
+    background: hsl(0, 0%, 10%);
+    border-color: var(--jet);
+  }
+  
+  .dark-mode .filter-btn {
+    background: var(--eerie-black-2); /* dark gray instead of white */
+    color: var(--white-1);
+    border: 1px solid var(--jet);
+  }
+  
+  .dark-mode .filter-btn:hover:not(.active) {
+    background: var(--jet); /* slightly lighter gray for hover */
+    color: var(--white-1);   /* keep text readable */
+  }
+  
+  .dark-mode .filter-btn.active {
+    background: var(--orange-yellow-crayola); /* keep your yellow highlight */
+    color: var(--smoky-black); /* dark text on yellow */
+  }
+
+  .dark-mode .switch .slider {
+    background: var(--eerie-black-2);
+    border: 1px solid var(--jet);
+    box-shadow:
+      inset 0 2px 4px hsla(0, 0%, 0%, 0.4),  /* inner shadow for depth */
+      0 2px 4px hsla(0, 0%, 0%, 0.5);        /* subtle outer shadow */
+  }
+  
+  /* Dark mode knob depth */
+  .dark-mode .switch .slider::before {
+    background: var(--smoky-black);
+    box-shadow:
+      0 1px 2px hsla(0, 0%, 0%, 0.6),
+      inset 0 1px 1px hsla(0, 0%, 100%, 0.05); /* faint highlight */
+  }
+
+  /* Optional: link hover contrast in dark */
+  .dark-mode a:hover,
+  .dark-mode a:focus { color: var(--white-2); }
