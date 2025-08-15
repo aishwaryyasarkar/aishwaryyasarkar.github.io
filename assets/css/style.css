@@ -1516,6 +1516,64 @@ article.resume a:hover {
 /**
  * responsive larger than 450px screen
  */
+ /* Tablet-ish band where the bug appears */
+/* 580–767px: cards are 520px wide */
+@media (min-width: 577px) and (max-width: 767px) {
+  :root { --nav-gap: 12px; }
+  .navbar{
+    position: fixed;
+    top: var(--nav-gap) !important;
+    height: 65px;
+    width: 520px;          /* match .sidebar, article */
+    left: 50%;             /* center horizontally */
+    transform: translateX(-50%);
+    right: auto;           /* avoid conflicting rules */
+    bottom: auto;
+    z-index: 5;
+    border-radius: 20px;   /* same feel as cards */ 
+  }
+  main { padding-top: 65px; }
+  html { scroll-padding-top: 65px; }
+}
+
+/* 768–1023px: cards are 700px wide */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root { --nav-gap: 12px; }  
+  .navbar{
+    position: fixed;
+    top: var(--nav-gap) !important;
+    height: 65px;
+    width: 700px;          /* match .sidebar, article */
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    bottom: auto;
+    z-index: 5;
+    border-radius: 20px;
+  }
+  main { padding-top: calc(65px + var(--nav-gap)); }
+  html { scroll-padding-top: calc(65px + var(--nav-gap)); }
+}
+
+/* Uncap the sidebar in tablet widths */
+/* Tablet widths — keep sidebar fully open */
+@media (min-width: 577px) and (max-width: 1249px) {
+  .sidebar{
+    max-height: none !important;
+    overflow: visible !important;
+    padding-bottom: 24px;        /* space inside the card bottom */
+  }
+  .sidebar-info_more{ opacity: 1; visibility: visible; }
+  .info_more-btn{ display: none; }
+
+  /* text column won’t overflow next to the photo */
+  .sidebar-info{ align-items: flex-start; gap: 20px; }
+  .info-content{ flex: 1 1 auto; min-width: 0; }
+}
+
+
+
+
 
 @media (min-width: 450px) {
 
@@ -1544,7 +1602,7 @@ article.resume a:hover {
  * responsive larger than 580px screen
  */
 
-@media (min-width: 580px) {
+@media (min-width: 577px) {
 
   /**
    * CUSTOM PROPERTY
@@ -1602,7 +1660,7 @@ article.resume a:hover {
    */
 
   main {
-    margin-top: 60px;
+    padding-top: 65px;
     margin-bottom: 100px;
   }
 
@@ -1662,7 +1720,7 @@ article.resume a:hover {
   .navbar { 
     top: 0;
     bottom: auto; 
-    border-radius: 20px 20px 0 0; }
+    border-radius: 20px;}
 
   .navbar-list { gap: 20px; }
 
@@ -1976,7 +2034,10 @@ article.resume a:hover {
    * MAIN 
    */
 
-  main { margin-bottom: 60px; }
+   main {
+    padding-top: 0;   /* was 65px */
+    margin-top: 15px; /* keep a small breathing space if you like */
+  }
 
   .main-content {
     position: relative;
@@ -2117,7 +2178,7 @@ article.resume a:hover {
 
   .sidebar {
     position: sticky;
-    top: 60px;
+    top: 12px;
     max-height: max-content;
     height: 100%;
     margin-bottom: 0;
@@ -2181,7 +2242,7 @@ article.resume a:hover {
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 576px) {
   /* Already forcing sidebar info to show, so keep that */
   .sidebar-info_more {
     opacity: 1 !important;
@@ -2213,7 +2274,17 @@ article.resume a:hover {
     justify-content: flex-start; /* or space-between if you prefer */
     gap: 15px;
   }
-  
+  .navbar {
+    position: static;          /* no fixed bar */
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    width: auto;
+    height: auto;
+    padding: 0;
+  }
+
+  .navbar-list { display: none; }   /* hide links, use hamburger */
   /* Place the hamburger in top-right corner */
   .hamburger {
     display: block;
@@ -2260,11 +2331,11 @@ article.resume a:hover {
     font-size: 14px; /* or whatever size you prefer */
   }
 
-  .navbar {
+  /* .navbar {
     top: 0;
     bottom: auto; 
     border-radius: 12px 12px 12px 12px; 
-  }
+  } */
   
   /* Center the social icons in mobile view */
   .social-list {

@@ -306,3 +306,44 @@ function initThemeToggle() {
     media.addListener(onSystemChange);
   }
 }
+
+function setNavOffset() {
+  const nav = document.querySelector('.navbar');
+  const h = nav ? nav.offsetHeight : 0;
+  document.documentElement.style.setProperty('--nav-h', `${h}px`);
+}
+window.addEventListener('load', setNavOffset);
+window.addEventListener('resize', setNavOffset);
+
+
+
+// ===== DEBUG BADGE (remove later) =====
+(function () {
+  const badge = document.createElement('div');
+  badge.style.cssText = `
+    position:fixed; z-index:9999; right:8px; bottom:8px;
+    font:12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    background:#000c; color:#fff; padding:6px 8px; border-radius:8px;
+    pointer-events:none;`;
+  document.body.appendChild(badge);
+
+  const mq = [
+    ['≤579',  '(max-width: 579px)'],
+    ['580–767','(min-width: 580px) and (max-width: 767px)'],
+    ['768–1023','(min-width: 768px) and (max-width: 1023px)'],
+    ['≥1024','(min-width: 1024px)']
+  ].map(([label, q]) => [label, window.matchMedia(q)]);
+
+  function tick() {
+    const w = window.innerWidth;
+    const active = mq.find(([, m]) => m.matches)?.[0] || '—';
+    const nav = document.querySelector('.navbar');
+    const navH = nav ? Math.round(getComputedStyle(nav).height.replace('px','')) : 0;
+    badge.textContent = `w:${w}px  •  ${active}  •  navH:${navH}px`;
+    // console view too:
+    // console.log({w, active, navH});
+  }
+  window.addEventListener('resize', tick, {passive:true});
+  window.addEventListener('DOMContentLoaded', tick);
+  tick();
+})();
