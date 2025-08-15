@@ -2465,64 +2465,80 @@ article.resume a:hover {
 
 /* =========================
    DARK THEME — variable overrides
-   ========================= */
-   .dark-mode {
-    /* palette */
-    --smoky-black: hsl(0, 0%, 6%);      /* body bg */
-    --eerie-black-1: hsl(240, 3%, 12%);
-    --eerie-black-2: hsl(240, 3%, 14%); /* card/bg surfaces */
-    --jet: hsl(0, 0%, 26%);             /* borders/dividers */
-    --white-1: hsl(0, 0%, 100%);        /* text accents */
-    --white-2: hsl(0, 0%, 95%);         /* headings */
-    --light-gray: hsl(0, 0%, 80%);      /* body text */
-    --light-gray-70: hsla(0, 0%, 80%, 0.7);
-    --orange-yellow-crayola: hsl(45, 100%, 55%);
-  
-    /* darker gradients & shadows (optional but nicer) */
-    --bg-gradient-onyx: linear-gradient(to bottom right, hsl(240, 3%, 16%) 3%, hsl(240, 3%, 12%) 97%);
-    --bg-gradient-jet: linear-gradient(to bottom right, hsla(240, 3%, 22%, 0.35) 0%, hsla(240, 3%, 16%, 0) 100%), hsl(240, 3%, 16%);
-    --shadow-1: -4px 8px 24px hsla(0,0%,0%,0.35);
-    --shadow-2: 0 16px 30px hsla(0,0%,0%,0.40);
-    --shadow-3: 0 16px 40px hsla(0,0%,0%,0.45);
-  }
-  
-  /* Your navbar has a hard-coded light bg; override it in dark mode */
-  .dark-mode .navbar {
-    background: hsl(0, 0%, 10%);
-    border-color: var(--jet);
-  }
-  
-  .dark-mode .filter-btn {
-    background: var(--eerie-black-2); /* dark gray instead of white */
-    color: var(--white-1);
-    border: 1px solid var(--jet);
-  }
-  
-  .dark-mode .filter-btn:hover:not(.active) {
-    background: var(--jet); /* slightly lighter gray for hover */
-    color: var(--white-1);   /* keep text readable */
-  }
-  
-  .dark-mode .filter-btn.active {
-    background: var(--orange-yellow-crayola); /* keep your yellow highlight */
-    color: var(--smoky-black); /* dark text on yellow */
-  }
+  ========================= */
+  .dark-mode {
+  /* palette */
+  --smoky-black: hsl(0, 0%, 6%);      /* body bg */
+  --eerie-black-1: hsl(240, 3%, 12%);
+  --eerie-black-2: hsl(240, 3%, 14%); /* card/bg surfaces */
+  --jet: hsl(0, 0%, 26%);             /* borders/dividers */
+  --white-1: hsl(0, 0%, 100%);        /* text accents */
+  --white-2: hsl(0, 0%, 95%);         /* headings */
+  --light-gray: hsl(0, 0%, 80%);      /* body text */
+  --light-gray-70: hsla(0, 0%, 80%, 0.7);
+  --orange-yellow-crayola: hsl(45, 100%, 55%);
 
-  .dark-mode .switch .slider {
-    background: var(--eerie-black-2);
-    border: 1px solid var(--jet);
-    box-shadow:
-      inset 0 2px 4px hsla(0, 0%, 0%, 0.4),  /* inner shadow for depth */
-      0 2px 4px hsla(0, 0%, 0%, 0.5);        /* subtle outer shadow */
-  }
-  
-  /* Dark mode knob depth */
-  .dark-mode .switch .slider::before {
-    background: var(--smoky-black);
-    box-shadow:
-      0 1px 2px hsla(0, 0%, 0%, 0.6),
-      inset 0 1px 1px hsla(0, 0%, 100%, 0.05); /* faint highlight */
-  }
+  /* darker gradients & shadows (optional but nicer) */
+  --bg-gradient-onyx: linear-gradient(to bottom right, hsl(240, 3%, 16%) 3%, hsl(240, 3%, 12%) 97%);
+  --bg-gradient-jet: linear-gradient(to bottom right, hsla(240, 3%, 22%, 0.35) 0%, hsla(240, 3%, 16%, 0) 100%), hsl(240, 3%, 16%);
+  --shadow-1: -4px 8px 24px hsla(0,0%,0%,0.35);
+  --shadow-2: 0 16px 30px hsla(0,0%,0%,0.40);
+  --shadow-3: 0 16px 40px hsla(0,0%,0%,0.45);
+}
+
+/* Your navbar has a hard-coded light bg; override it in dark mode */
+.dark-mode .navbar {
+  background: hsl(0, 0%, 10%);
+  border-color: var(--jet);
+}
+
+.dark-mode .filter-btn {
+  background: var(--eerie-black-2); /* dark gray instead of white */
+  color: var(--white-1);
+  border: 1px solid var(--jet);
+}
+
+.dark-mode .filter-btn:hover:not(.active) {
+  background: var(--jet); /* slightly lighter gray for hover */
+  color: var(--white-1);   /* keep text readable */
+}
+
+.dark-mode .filter-btn.active {
+  background: var(--orange-yellow-crayola); /* keep your yellow highlight */
+  color: var(--smoky-black); /* dark text on yellow */
+}
+
+.dark-mode .switch .slider {
+  background: var(--eerie-black-2);
+  border: 1px solid var(--jet);
+  box-shadow:
+    inset 0 2px 4px hsla(0, 0%, 0%, 0.4),  /* inner shadow for depth */
+    0 2px 4px hsla(0, 0%, 0%, 0.5);        /* subtle outer shadow */
+}
+
+/* Dark mode knob depth */
+.dark-mode .switch .slider::before {
+  background: var(--smoky-black);
+  box-shadow:
+    0 1px 2px hsla(0, 0%, 0%, 0.6),
+    inset 0 1px 1px hsla(0, 0%, 100%, 0.05); /* faint highlight */
+}
+  /* Dark mode — make social icons white */
+.dark-mode .social-item .social-link,
+.dark-mode .social-link ion-icon {
+  color: var(--white-1) !important;     /* Ionicons / font icons */
+}
+
+/* Inline SVG icons */
+.dark-mode .social-item .social-link svg {
+  fill: var(--white-1);
+  stroke: var(--white-1);
+}
+
+/* PNG/SVG images used as icons (e.g., LinkedIn, X, GS) */
+.dark-mode .social-item .social-link img {
+  filter: brightness(0) invert(1) !important;  /* turns dark glyphs to white */
+}
 
   /* Optional: link hover contrast in dark */
   .dark-mode a:hover,
