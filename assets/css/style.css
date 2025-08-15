@@ -1420,6 +1420,42 @@ textarea.form-input::-webkit-resizer { display: none; }
 
 .form-btn:disabled:hover::before { background: var(--bg-gradient-jet); }
 
+.recent-updates { margin: 20px 0 10px; }
+
+.updates-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.update-item {
+  border: 1px solid var(--jet);
+  border-radius: 10px;
+  background: var(--eerie-black-2);
+  box-shadow: var(--shadow-1);
+  padding: 14px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+  transform-origin: center;
+  cursor: pointer;
+}
+
+.update-item:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-3);
+}
+
+.update-item .timeline-item-header {
+  font-weight: var(--fw-500);
+  color: var(--white-2);
+  margin-bottom: 6px;
+}
+
+.update-item .service-item-text {
+  margin: 0;
+}
 
 
 

@@ -69,16 +69,21 @@ window.addEventListener("DOMContentLoaded", () => {
 
       // Load the main content partial
       loadPartial("content-placeholder", lastPage, false)
-        .then(() => {
-          if (lastPage.includes("journey.html")) {
-            initNewsFilter();
-          }
-          updateActiveNav();
+      .then(() => {
+        if (lastPage.includes("journey.html")) {
+          initNewsFilter();
+        }
+        if (lastPage.includes("about.html")) {
+          loadPartial("hidden-journey-placeholder", "./partials/journey.html", false)
+            .then(() => {
+              insertRecentUpdates();
+            });
+        }
+        updateActiveNav();
+      }).catch((error) => {
+              console.error("Error loading content partial:", error);
+            });
         })
-        .catch((error) => {
-          console.error("Error loading content partial:", error);
-        });
-    })
     .catch((err) => {
       console.error("Error loading navbar partial:", err);
     });
@@ -215,4 +220,21 @@ function toggleSidebarNav() {
   } else {
     nav.style.display = 'block';
   }
+}
+
+function insertRecentUpdates() {
+  const updatesList = document.querySelector('#recent-updates .timeline-list');
+  const journeyList = document.querySelector('article.news .timeline-list');
+
+  if (!updatesList || !journeyList) return;
+
+  updatesList.innerHTML = '';
+
+  // Get the first two recent journey items
+  const mostRecent = Array.from(journeyList.querySelectorAll('.timeline-item')).slice(0, 2);
+
+  mostRecent.forEach(item => {
+    const clone = item.cloneNode(true);
+    updatesList.appendChild(clone);
+  });
 }
