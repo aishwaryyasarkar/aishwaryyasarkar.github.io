@@ -618,6 +618,50 @@ main {
 
 .about-text p { margin-bottom: 15px; }
 
+.recent-updates {
+  margin-bottom: 28px;
+  padding: 12px 14px;
+  border: 1px solid var(--jet);
+  border-radius: 12px;
+  background: var(--bg-gradient-jet);
+}
+
+#recent-updates .service-title {
+  position: relative;
+  animation: recentTitlePulse 2.2s ease-in-out 1;
+}
+
+#recent-updates .timeline-item {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: recentItemReveal 550ms ease forwards;
+}
+
+#recent-updates .timeline-item:nth-child(1) { animation-delay: 120ms; }
+#recent-updates .timeline-item:nth-child(2) { animation-delay: 260ms; }
+#recent-updates .timeline-item:nth-child(3) { animation-delay: 400ms; }
+
+@keyframes recentItemReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes recentTitlePulse {
+  0%, 100% { color: var(--white-2); }
+  50% { color: var(--orange-yellow-crayola); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #recent-updates .service-title,
+  #recent-updates .timeline-item {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 .infocontent {
   font-size: calc(12px + 0.5vw);
   padding: 1rem;
