@@ -179,33 +179,30 @@ body { background: var(--smoky-black); }
 }
 
 .publication-list {
-  list-style: decimal;
-  list-style-position: outside;
-  padding-left: 22px;
+  list-style: none;
+  padding-left: 0;
   margin: 0;
 }
 
 .publication-item {
-  list-style: decimal;
+  list-style: none;
   margin-bottom: 20px;
   padding: 15px;
   border: 1px solid var(--jet);
   border-radius: 10px;
   background: var(--eerie-black-2);
   box-shadow: var(--shadow-1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Add transition for hover effect */
+  cursor: default;
 }
 
-.publication-link {
+.publication-title-link {
   text-decoration: none;
-  color: inherit; /* Inherit text color */
-  display: block; /* Make the link cover the entire card */
-  height: 100%; /* Ensure full coverage */
+  color: var(--vegas-gold);
+  cursor: pointer;
 }
 
-.publication-item:hover {
-  transform: scale(1.02); /* Slightly increase size on hover */
-  box-shadow: var(--shadow-3); /* Change shadow on hover */
+.publication-title-link:hover {
+  color: var(--white-2);
 }
 
 .publication-item .publication-title {
