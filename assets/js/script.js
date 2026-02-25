@@ -76,6 +76,10 @@ window.addEventListener("DOMContentLoaded", () => {
       // Load the main content partial
       loadPartial("content-placeholder", lastPage, false)
       .then(() => {
+        if (lastPage.includes("resume.html")) {
+          keepPresentEntriesFirst();
+          initResumeFilter();
+        }
         if (lastPage.includes("journey.html")) {
           initNewsFilter();
         }
@@ -106,6 +110,10 @@ window.addEventListener("hashchange", () => {
 
   loadPartial("content-placeholder", `./partials/${section}.html`)
     .then(async () => {
+      if (section === "resume") {
+        keepPresentEntriesFirst();
+        initResumeFilter();
+      }
       if (section === "journey") {
         initNewsFilter();
       }
@@ -227,6 +235,53 @@ function initNewsFilter() {
   });
 }
 
+function keepPresentEntriesFirst() {
+  const resumeArticle = document.querySelector('article.resume');
+  if (!resumeArticle) return;
+
+  const timelineLists = resumeArticle.querySelectorAll('.timeline-list');
+  timelineLists.forEach(list => {
+    const items = Array.from(list.querySelectorAll(':scope > .timeline-item'));
+    if (!items.length) return;
+
+    const isPresentItem = (item) => {
+      const dateText = item.querySelector('span')?.textContent || '';
+      return /\bpresent\b/i.test(dateText);
+    };
+
+    const presentItems = items.filter(isPresentItem);
+    if (!presentItems.length) return;
+
+    const nonPresentItems = items.filter(item => !isPresentItem(item));
+    [...presentItems, ...nonPresentItems].forEach(item => list.appendChild(item));
+  });
+}
+
+function initResumeFilter() {
+  const resumeArticle = document.querySelector('article.resume');
+  if (!resumeArticle) return;
+
+  const filterButtons = resumeArticle.querySelectorAll('.resume-filter .filter-btn');
+  const resumeSections = resumeArticle.querySelectorAll('.resume-section');
+  if (!filterButtons.length || !resumeSections.length) return;
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filterValue = button.getAttribute('data-filter');
+
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      resumeSections.forEach(section => {
+        const sectionCategory = section.getAttribute('data-category');
+        section.style.display = (filterValue === 'all' || sectionCategory === filterValue)
+          ? 'block'
+          : 'none';
+      });
+    });
+  });
+}
+
 function initPublicationsFilter() {
   const publicationsArticle = document.querySelector('article.publication');
   if (!publicationsArticle) return;
@@ -245,7 +300,7 @@ function initPublicationsFilter() {
       publicationItems.forEach(item => {
         const itemCategory = item.getAttribute('data-category');
         item.style.display = (filterValue === 'all' || itemCategory === filterValue)
-          ? 'list-item'
+          ? 'block'
           : 'none';
       });
     });

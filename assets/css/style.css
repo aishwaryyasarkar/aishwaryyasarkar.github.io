@@ -186,6 +186,9 @@ body { background: var(--smoky-black); }
 
 .publication-item {
   list-style: none;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
   margin-bottom: 20px;
   padding: 15px;
   border: 1px solid var(--jet);
@@ -1487,6 +1490,12 @@ article.resume .timeline-item-title {
   color: var(--white-2);           /* keep titles bright */
 }
 
+.timeline-achievement-text {
+  color: var(--white-2);
+  font-weight: var(--fw-400);
+  margin: 0;
+}
+
 article.resume .timeline-location {
   color: var(--light-gray);        /* right-aligned location text */
   font-weight: var(--fw-300);
@@ -2167,7 +2176,8 @@ article.resume a:hover {
    */
 
   main {
-    max-width: 1200px;
+    max-width: 1480px;
+    width: calc(100% - 40px);
     margin-inline: auto;
     display: flex;
     justify-content: center;
@@ -2176,8 +2186,8 @@ article.resume a:hover {
   }
 
   .main-content {
-    min-width: 75%;
-    width: 75%;
+    min-width: 0;
+    width: calc(100% - 340px);
     margin: 0;
   }
 

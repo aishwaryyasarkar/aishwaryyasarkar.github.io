@@ -4,7 +4,30 @@
       <h2 class="h2 article-title">Resume</h2>
     </header>
 
-    <section class="timeline">
+    <div class="news-filter resume-filter">
+      <button class="filter-btn active" data-filter="all">
+        <ion-icon name="layers"></ion-icon>
+        <span>All</span>
+      </button>
+      <button class="filter-btn" data-filter="education">
+        <ion-icon name="school"></ion-icon>
+        <span>Education</span>
+      </button>
+      <button class="filter-btn" data-filter="experience">
+        <ion-icon name="briefcase"></ion-icon>
+        <span>Experience</span>
+      </button>
+      <button class="filter-btn" data-filter="teaching">
+        <ion-icon name="library"></ion-icon>
+        <span>Teaching</span>
+      </button>
+      <button class="filter-btn" data-filter="leadership">
+        <ion-icon name="people"></ion-icon>
+        <span>Leadership</span>
+      </button>
+    </div>
+
+    <section class="timeline resume-section" data-category="education">
 
       <div class="title-wrapper">
         <div class="icon-box">
@@ -41,7 +64,7 @@
 
     </section>
 
-    <section class="timeline">
+    <section class="timeline resume-section" data-category="experience">
 
       <div class="title-wrapper">
         <div class="icon-box">
@@ -53,14 +76,40 @@
 
       <ol class="timeline-list">
         <li class="timeline-item">
-            <span>May 2023 — Present</span>
+            <span>May 2025 — Aug 2025</span>
             <div class="timeline-item-header">
               <h4 class="h4 timeline-item-title">Pacific Northwest National Laboratory</h4>
-              <span class="timeline-location">Richland, Washington, US</span>
+              <span class="timeline-location">Richland, Washington, USA</span>
             </div>
-            <p>Ph.D. Intern - HPC</p>
-            <p>Supervisors: Drs. <a href="https://www.pnnl.gov/people/nathan-tallent">Nathan Tallent</a> and <a href="https://www.pnnl.gov/people/sayan-ghosh">Sayan Ghosh</a></p>
-          </li>
+            <p>PhD Intern - AI-Assisted Scientific Workflows</p>
+        </li>
+
+        <li class="timeline-item">
+            <span>Jan 2025 — May 2025</span>
+            <div class="timeline-item-header">
+              <h4 class="h4 timeline-item-title">Pacific Northwest National Laboratory</h4>
+              <span class="timeline-location">Richland, Washington, USA</span>
+            </div>
+            <p>Visiting Researcher</p>
+        </li>
+
+        <li class="timeline-item">
+            <span>May 2024 — Jan 2025</span>
+            <div class="timeline-item-header">
+              <h4 class="h4 timeline-item-title">Pacific Northwest National Laboratory</h4>
+              <span class="timeline-location">Richland, Washington, USA</span>
+            </div>
+            <p>PhD Intern - High Performance Computing</p>
+        </li>
+
+        <li class="timeline-item">
+            <span>May 2023 — Jan 2024</span>
+            <div class="timeline-item-header">
+              <h4 class="h4 timeline-item-title">Pacific Northwest National Laboratory</h4>
+              <span class="timeline-location">Richland, Washington, USA</span>
+            </div>
+            <p>PhD Intern - High Performance Computing</p>
+        </li>
 
         <li class="timeline-item">
             <span>May 2018 — Present</span>
@@ -74,7 +123,7 @@
       </ol>
 
     </section>
-    <section class="timeline">
+    <section class="timeline resume-section" data-category="experience">
 
       <div class="title-wrapper">
         <div class="icon-box">
@@ -114,7 +163,7 @@
         </li>
       </ol>
       </section>
-    <section class="timeline">
+    <section class="timeline resume-section" data-category="teaching">
 
       <div class="title-wrapper">
         <div class="icon-box">
@@ -141,6 +190,51 @@
         <li class="timeline-item">
           <span>Fall 2017 - Spring 2019 (4 Semesters)</span>
           <h4 class="h4 timeline-item-title">COMS 113 Spreadsheets and Databases Teaching Assistant</h4>
+        </li>
+      </ol>
+    </section>
+
+    <section class="timeline resume-section" data-category="leadership">
+      <div class="title-wrapper">
+        <div class="icon-box">
+          <ion-icon name="people-outline"></ion-icon>
+        </div>
+        <h3 class="h3">Leadership and Professional Activities</h3>
+      </div>
+
+      <ol class="timeline-list">
+        <li class="timeline-item">
+          <p>Supervised and mentored 4+ undergraduate and masters theses.</p>
+        </li>
+        <li class="timeline-item">
+          <p>Hosted events and seminars as Women in Data Science (WiDS) Ames Ambassador, Stanford University.</p>
+        </li>
+        <li class="timeline-item">
+          <p>Directed financial operations as Treasurer, Computer Science Graduate Student Organization, Iowa State University.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="timeline resume-section" data-category="education">
+      <div class="title-wrapper">
+        <div class="icon-box">
+          <ion-icon name="trophy-outline"></ion-icon>
+        </div>
+        <h3 class="h3">Achievements</h3>
+      </div>
+
+      <ol class="timeline-list">
+        <li class="timeline-item">
+          <div class="timeline-item-header">
+            <p class="timeline-achievement-text">Teaching Excellence Award, Iowa State University</p>
+            <span class="timeline-location">2022</span>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-item-header">
+            <p class="timeline-achievement-text">Student Achievement Award, Institute of Engineering & Management</p>
+            <span class="timeline-location">2017</span>
+          </div>
         </li>
       </ol>
     </section>
