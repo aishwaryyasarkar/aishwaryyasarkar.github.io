@@ -541,12 +541,9 @@ main {
   font-size: 18px;            /* for Ionicons or Font Awesome icons */
 }
 
-/* Specifically target PNG images inside social links */
-.social-item .social-link img {
-  width: 25px;           /* match the size of your text icons */
-  height: auto;          /* maintain aspect ratio */
-  vertical-align: middle; 
-  filter: invert(65%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0.6);
+.social-item .social-link iconify-icon {
+  font-size: 24px;
+  vertical-align: middle;
 }
 
 
@@ -654,8 +651,7 @@ main {
 }
 
 .service-item:hover {
-  transform: scale(1.02);                    /* or: translateY(-2px) scale(1.01) */
-  box-shadow: var(--shadow-3);
+  box-shadow: var(--shadow-1);
 }
 
 .service-item::before {
