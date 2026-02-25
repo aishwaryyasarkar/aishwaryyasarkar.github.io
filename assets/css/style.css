@@ -1529,10 +1529,16 @@ article.resume a:hover {
     width: 520px;          /* match .sidebar, article */
     left: 50%;             /* center horizontally */
     transform: translateX(-50%);
-    right: auto;           /* avoid conflicting rules */
+    right: auto;
     bottom: auto;
     z-index: 5;
-    border-radius: 20px;   /* same feel as cards */ 
+    border-radius: 20px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .navbar.navbar-hidden {
+    transform: translate(-50%, -120%);
+    opacity: 0;
+    pointer-events: none;
   }
   main { padding-top: 65px; }
   html { scroll-padding-top: 65px; }
@@ -1540,7 +1546,7 @@ article.resume a:hover {
 
 /* 768–1023px: cards are 700px wide */
 @media (min-width: 768px) and (max-width: 1023px) {
-  :root { --nav-gap: 12px; }  
+  :root { --nav-gap: 12px; }
   .navbar{
     position: fixed;
     top: var(--nav-gap) !important;
@@ -1552,6 +1558,12 @@ article.resume a:hover {
     bottom: auto;
     z-index: 5;
     border-radius: 20px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .navbar.navbar-hidden {
+    transform: translate(-50%, -120%);
+    opacity: 0;
+    pointer-events: none;
   }
   main { padding-top: calc(65px + var(--nav-gap)); }
   html { scroll-padding-top: calc(65px + var(--nav-gap)); }

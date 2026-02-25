@@ -61,6 +61,7 @@ window.addEventListener("DOMContentLoaded", () => {
   loadPartial("navbar-placeholder", "./partials/navbar.html", false)
     .then(() => {
       initThemeToggle();
+      initNavbarAutoHide();
       let lastPage = "./partials/about.html";
 
       if (window.location.hash) {
@@ -349,6 +350,33 @@ function setNavOffset() {
 }
 window.addEventListener('load', setNavOffset);
 window.addEventListener('resize', setNavOffset);
+
+function initNavbarAutoHide() {
+  if (window.__navbarAutoHideInitialized) return;
+  window.__navbarAutoHideInitialized = true;
+
+  const syncNavbarVisibility = () => {
+    const nav = document.querySelector('.navbar');
+    if (!nav) return;
+
+    const inTabletRange = window.innerWidth >= 577 && window.innerWidth <= 1023;
+    if (!inTabletRange) {
+      nav.classList.remove('navbar-hidden');
+      return;
+    }
+
+    if (window.scrollY > 20) {
+      nav.classList.add('navbar-hidden');
+    } else {
+      nav.classList.remove('navbar-hidden');
+    }
+  };
+
+  window.addEventListener('scroll', syncNavbarVisibility, { passive: true });
+  window.addEventListener('resize', syncNavbarVisibility, { passive: true });
+  window.addEventListener('hashchange', syncNavbarVisibility);
+  syncNavbarVisibility();
+}
 
 
 
