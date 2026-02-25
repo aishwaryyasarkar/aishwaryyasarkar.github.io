@@ -179,12 +179,14 @@ body { background: var(--smoky-black); }
 }
 
 .publication-list {
-  list-style-type: none;
-  padding: 0;
+  list-style: decimal;
+  list-style-position: outside;
+  padding-left: 22px;
   margin: 0;
 }
 
 .publication-item {
+  list-style: decimal;
   margin-bottom: 20px;
   padding: 15px;
   border: 1px solid var(--jet);
@@ -2543,4 +2545,3 @@ article.resume a:hover {
   /* Optional: link hover contrast in dark */
   .dark-mode a:hover,
   .dark-mode a:focus { color: var(--white-2); }
-

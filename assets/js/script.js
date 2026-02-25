@@ -49,7 +49,7 @@ async function loadPartial(elementId, partialPath, updateHash = true) {
  * On DOMContentLoaded:
  *  1. Load sidebar and navbar
  *  2. Check the URL hash (if present) or localStorage to figure out which partial to show
- *  3. If the partial is "news", call initNewsFilter
+ *  3. If the partial is "news" or "publications", initialize filters
  */
 const isFirstVisit = !sessionStorage.getItem('visited');
 if (isFirstVisit) sessionStorage.setItem('visited', '1');
@@ -78,6 +78,9 @@ window.addEventListener("DOMContentLoaded", () => {
         if (lastPage.includes("journey.html")) {
           initNewsFilter();
         }
+        if (lastPage.includes("publications.html")) {
+          initPublicationsFilter();
+        }
         if (lastPage.includes("about.html")) {
           loadPartial("hidden-journey-placeholder", "./partials/journey.html", false)
             .then(() => {
@@ -104,6 +107,9 @@ window.addEventListener("hashchange", () => {
     .then(async () => {
       if (section === "journey") {
         initNewsFilter();
+      }
+      if (section === "publications") {
+        initPublicationsFilter();
       }
       if (section === "about") {
         await ensureRecentUpdates();
@@ -216,6 +222,31 @@ function initNewsFilter() {
       });
 
       markLastVisibleTimelineItem();
+    });
+  });
+}
+
+function initPublicationsFilter() {
+  const publicationsArticle = document.querySelector('article.publication');
+  if (!publicationsArticle) return;
+
+  const filterButtons = publicationsArticle.querySelectorAll('.publication-filter .filter-btn');
+  const publicationItems = publicationsArticle.querySelectorAll('.publication-item');
+  if (!filterButtons.length || !publicationItems.length) return;
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filterValue = button.getAttribute('data-filter');
+
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      publicationItems.forEach(item => {
+        const itemCategory = item.getAttribute('data-category');
+        item.style.display = (filterValue === 'all' || itemCategory === filterValue)
+          ? 'list-item'
+          : 'none';
+      });
     });
   });
 }
