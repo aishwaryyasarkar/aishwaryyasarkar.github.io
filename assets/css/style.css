@@ -1527,6 +1527,7 @@ article.resume p {
 
 article.resume .timeline-item-title {
   color: var(--white-2);           /* keep titles bright */
+  font-weight: var(--fw-400);
 }
 
 .timeline-achievement-text {
@@ -2464,9 +2465,16 @@ article.resume a:hover {
 .news-filter {
   display: flex;
   gap: 10px;               /* Space between buttons */
-  justify-content: center; /* Center the buttons horizontally */
+  justify-content: flex-start;
   align-items: center;
+  flex-wrap: wrap;
+  row-gap: 8px;
   margin-bottom: 1em;      /* Spacing below the filter section */
+}
+
+.news-filter .filter-btn {
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 .filter-btn {
