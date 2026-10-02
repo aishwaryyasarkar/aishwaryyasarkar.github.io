@@ -30,9 +30,42 @@
 
 <section class="service">
 
-    <h3 class="h3 service-title">Ongoing Projects</h3>
+    <h3 class="h3 service-title">Projects</h3>
 
     <ul class="service-list">
+        <li class="service-item">
+
+        <div class="service-icon-box">
+            <img src="./assets/images/icon-graph.png" alt="graph icon" width="40">
+        </div>
+
+        <div class="service-content-box">
+            <h5 class="h5 service-item-title">NOMAD</h5>
+
+            <p class="service-item-text">
+            A distributed-memory graph embedding framework using MPI to generate embeddings for massive graphs. NOMAD demonstrates median speedups of 10/100x on CPU-based NERSC Perlmutter cluster relative to the popular reference implementations of multi-threaded LINE and node2vec, 35-76x over distributed PyTorch-BigGraph (PBG), and competitive embedding quality relative to LINE, node2vec, and GraphVite, while yielding 12-370x end-to-end speedups on real-world graphs.
+            [<a href="https://arxiv.org/abs/2604.09419">arXiv</a>]
+            </p>
+        </div>
+
+        </li>
+        <li class="service-item">
+
+        <div class="service-icon-box">
+            <img src="./assets/images/icon-graph.png" alt="graph icon" width="40">
+        </div>
+
+        <div class="service-content-box">
+            <h5 class="h5 service-item-title">Rudder</h5>
+
+            <p class="service-item-text">
+            LLM agents that adaptively steer prefetching and buffer management in AWS DistDGL to reduce communication overhead in distributed GNN training. Evaluated on NERSC's Perlmutter Supercomputer, Rudder improves end-to-end training performance by up to 91% over baseline DistDGL and reduces communication by over 50%.
+            [<a href="https://github.com/aishwaryyasarkar/rudder-llm-agent">Code</a>]
+            [<a href="https://arxiv.org/abs/2602.23556">ICS'26</a>]
+            </p>
+        </div>
+
+        </li>
         <li class="service-item">
 
         <div class="service-icon-box">
@@ -40,7 +73,7 @@
         </div>
 
         <div class="service-content-box">
-            <h5 class="h5 service-item-title">Scaling Graph Neural Networks</h5>
+            <h5 class="h5 service-item-title">MassiveGNN</h5>
 
             <p class="service-item-text">
             A novel prefetch and eviction scheme integrated into Amazon's DistDGL to optimize sampling and communication overheads in distributed Graph Neural Network (GNN) training, achieving a 15-40% performance improvement in Open Graph Benchmark (OGB) graph datasets on NERSC's Perlmutter Supercomputer. 
