@@ -1,5 +1,5 @@
 <aside class="sidebar" data-sidebar>
-  <div class="hamburger" id="hamburger" onclick="toggleSidebarNav()">&#9776;</div>
+  <button type="button" class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="sidebar-nav" onclick="toggleSidebarNav()">&#9776;</button>
   <!-- icon-hamburger.png -->
     <div class="sidebar-info">
       
@@ -93,32 +93,16 @@
     <!-- Mobile-friendly nav list that toggles on hamburger click -->
   <ul class="sidebar-nav" id="sidebar-nav">
     <li>
-      <button 
-        class="navbar-link" 
-        onclick="loadPartial('content-placeholder', './partials/about.html')">
-        About
-      </button>
+      <a class="navbar-link" href="#about">About</a>
     </li>
     <li>
-      <button 
-        class="navbar-link" 
-        onclick="loadPartial('content-placeholder', './partials/resume.html')">
-        Resume
-      </button>
+      <a class="navbar-link" href="#resume">Resume</a>
     </li>
     <li>
-      <button 
-        class="navbar-link" 
-        onclick="loadPartial('content-placeholder', './partials/publications.html')">
-        Publications
-      </button>
+      <a class="navbar-link" href="#publications">Publications</a>
     </li>
     <li>
-      <button 
-        class="navbar-link" 
-        onclick="loadPartial('content-placeholder', './partials/journey.html')">
-        Journey
-      </button>
+      <a class="navbar-link" href="#journey">Journey</a>
     </li>
   </ul>
   </aside>

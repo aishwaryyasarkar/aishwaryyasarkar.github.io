@@ -2613,3 +2613,36 @@ article.resume a:hover {
   /* Optional: link hover contrast in dark */
   .dark-mode a:hover,
   .dark-mode a:focus { color: var(--white-2); }
+
+/* Keep native controls and keyboard navigation visible in both themes. */
+[hidden] { display: none !important; }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid var(--orange-yellow-crayola);
+  outline-offset: 4px;
+}
+.switch input:focus-visible + .slider {
+  outline: 3px solid var(--orange-yellow-crayola);
+  outline-offset: 4px;
+}
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 12px 18px;
+  background: var(--smoky-black);
+  color: var(--white-1);
+  transform: translateY(-200%);
+}
+.skip-link:focus { transform: translateY(0); }
+.navbar:focus-within { opacity: 1; pointer-events: auto; }
+@media (min-width: 577px) and (max-width: 1023px) {
+  .navbar.navbar-hidden:focus-within { transform: translateX(-50%); }
+}
+@media (max-width: 576px) {
+  .sidebar-info { padding-top: 36px; }
+  .sidebar-info .info-content { min-width: 0; }
+  .sidebar-info .name, .sidebar-info .title { white-space: normal; }
+  .sidebar-info .title { width: auto; overflow-wrap: anywhere; padding-inline: 0; }
+  .sidebar-nav .navbar-link { display: block; padding: 12px; }
+}

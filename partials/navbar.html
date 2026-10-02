@@ -1,68 +1,14 @@
-<!-- partials/navbar.html -->
-<nav class="navbar">
-  <!-- <div class="hamburger" id="hamburger" onclick="toggleNavbar()">
-    &#9776;
-  </div> -->
-    <ul class="navbar-list">
-  
-      <!-- ABOUT -->
-      <li class="navbar-item">
-        <!-- 
-          We keep "active" on About by default, 
-          and also keep data-nav-link for your existing CSS/JS usage. 
-          The onclick calls loadPartial to switch the main content. 
-        -->
-        <button 
-          class="navbar-link" 
-          data-nav-link 
-          onclick="loadPartial('content-placeholder', './partials/about.html')"
-        >
-          About
-        </button>
-      </li>
-      
-  
-      <!-- RESUME -->
-      <li class="navbar-item">
-        <button 
-          class="navbar-link" 
-          data-nav-link 
-          onclick="loadPartial('content-placeholder', './partials/resume.html')"
-        >
-          Resume
-        </button>
-      </li>
-  
-      <!-- PUBLICATIONS -->
-      <li class="navbar-item">
-        <button 
-          class="navbar-link" 
-          data-nav-link 
-          onclick="loadPartial('content-placeholder', './partials/publications.html')"
-        >
-          Publications
-        </button>
-      </li>
-  
-      <!-- NEWS -->
-      <li class="navbar-item">
-        <button 
-        class="navbar-link" 
-        data-nav-link="journey" 
-        onclick="loadPartial('content-placeholder', './partials/journey.html');"
-      >
-        Journey
-      </button>
-      </li>
-
-      <li class="navbar-item">
-        <label class="switch" aria-label="Toggle dark mode">
-          <input id="theme-toggle" type="checkbox" />
-          <span class="slider"></span>
-        </label>
-      </li>
-      
-      
-    </ul>
-  </nav>
-  
+<nav class="navbar" aria-label="Main navigation">
+  <ul class="navbar-list">
+    <li class="navbar-item"><a class="navbar-link" href="#about">About</a></li>
+    <li class="navbar-item"><a class="navbar-link" href="#resume">Resume</a></li>
+    <li class="navbar-item"><a class="navbar-link" href="#publications">Publications</a></li>
+    <li class="navbar-item"><a class="navbar-link" href="#journey">Journey</a></li>
+    <li class="navbar-item">
+      <label class="switch">
+        <input id="theme-toggle" type="checkbox" aria-label="Toggle dark mode" />
+        <span class="slider" aria-hidden="true"></span>
+      </label>
+    </li>
+  </ul>
+</nav>

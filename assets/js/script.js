@@ -1,196 +1,56 @@
 'use strict';
 
-// element toggle function
-const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
+const pages = ['about', 'resume', 'publications', 'journey'];
 
-function initSidebar() {
-  const sidebar = document.querySelector("[data-sidebar]");
-  const sidebarBtn = document.querySelector("[data-sidebar-btn]");
-
-  // If these elements exist, attach event listeners
-  if (sidebar && sidebarBtn) {
-    sidebarBtn.addEventListener("click", function () {
-      sidebar.classList.toggle("active");
-    });
+function showPage(moveFocus = false) {
+  const requested = window.location.hash.slice(1);
+  // A skip link is an in-page anchor, not a route.
+  if (requested === 'content-placeholder' && document.querySelector('#content-placeholder article[hidden]')) return;
+  const page = pages.includes(requested) ? requested : 'about';
+  pages.forEach(name => {
+    const article = document.getElementById(name);
+    article.hidden = name !== page;
+    article.classList.toggle('active', name === page);
+  });
+  document.querySelectorAll('.navbar-link').forEach(link => {
+    const active = link.getAttribute('href') === `#${page}`;
+    link.classList.toggle('active', active);
+    if (active) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+  closeSidebarNav();
+  if (moveFocus) {
+    const heading = document.querySelector(`#${page} h2`);
+    heading.tabIndex = -1;
+    heading.focus();
   }
 }
 
-
-async function loadPartial(elementId, partialPath, updateHash = true) {
-  try {
-    const response = await fetch(partialPath);
-    if (!response.ok) {
-      throw new Error(`Could not load ${partialPath}`);
-    }
-    const htmlContent = await response.text();
-    document.getElementById(elementId).innerHTML = htmlContent;
-
-    // Save the partial that was loaded for next time
-    if (elementId === "content-placeholder") {
-      localStorage.setItem("lastActivePage", partialPath);
-    }
-
-    // Update the URL hash if requested (so the address changes to #about, etc.)
-    if (updateHash && elementId === "content-placeholder") {
-      const fileName = partialPath.split("/").pop(); // e.g. "about.html"
-      const section = fileName.replace(".html", ""); // e.g. "about"
-      window.location.hash = section; 
-      // or use history.pushState if you prefer:
-      // history.pushState({section}, "", "#" + section);
-    }
-
-    return htmlContent;
-  } catch (error) {
-    console.error("Error loading partial:", error);
+window.addEventListener('DOMContentLoaded', () => {
+  showPage();
+  keepPresentEntriesFirst();
+  initResumeFilter();
+  initNewsFilter();
+  initPublicationsFilter();
+  insertRecentUpdates();
+  initThemeToggle();
+  initNavbarAutoHide();
+  document.querySelectorAll('.filter-btn').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.classList.contains('active')));
+  });
+  document.querySelectorAll('.sidebar-nav .navbar-link').forEach(link => {
+    link.addEventListener('click', () => {
+      if (link.hash === window.location.hash) showPage(true);
+    });
+  });
+});
+window.addEventListener('hashchange', () => showPage(true));
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && document.getElementById('hamburger').getAttribute('aria-expanded') === 'true') {
+    closeSidebarNav();
+    document.getElementById('hamburger').focus();
   }
-}
-
-/**
- * On DOMContentLoaded:
- *  1. Load sidebar and navbar
- *  2. Check the URL hash (if present) or localStorage to figure out which partial to show
- *  3. If the partial is "news" or "publications", initialize filters
- */
-const isFirstVisit = !sessionStorage.getItem('visited');
-if (isFirstVisit) sessionStorage.setItem('visited', '1');
-window.addEventListener("DOMContentLoaded", () => {
-  // Load sidebar & navbar, no need to update hash for those
-  loadPartial("sidebar-placeholder", "./partials/sidebar.html", false);
-  
-  // Load navbar first; once that's done, proceed
-  loadPartial("navbar-placeholder", "./partials/navbar.html", false)
-    .then(() => {
-      initThemeToggle();
-      initNavbarAutoHide();
-      let lastPage = "./partials/about.html";
-
-      if (window.location.hash) {
-        const section = window.location.hash.substring(1);
-        lastPage = `./partials/${section}.html`;
-      } else if (!isFirstVisit) {
-        // After the very first load in this tab, allow restoring the last page
-        const saved = localStorage.getItem("lastActivePage");
-        if (saved) lastPage = saved;
-      }
-
-      // Load the main content partial
-      loadPartial("content-placeholder", lastPage, false)
-      .then(() => {
-        if (lastPage.includes("resume.html")) {
-          keepPresentEntriesFirst();
-          initResumeFilter();
-        }
-        if (lastPage.includes("journey.html")) {
-          initNewsFilter();
-        }
-        if (lastPage.includes("publications.html")) {
-          initPublicationsFilter();
-        }
-        if (lastPage.includes("about.html")) {
-          loadPartial("hidden-journey-placeholder", "./partials/journey.html", false)
-            .then(() => {
-              insertRecentUpdates();
-            });
-        }
-        updateActiveNav();
-      }).catch((error) => {
-              console.error("Error loading content partial:", error);
-            });
-        })
-    .catch((err) => {
-      console.error("Error loading navbar partial:", err);
-    });
 });
-
-
-
-window.addEventListener("hashchange", () => {
-  const section = window.location.hash.substring(1);
-  if (!section) return;
-
-  loadPartial("content-placeholder", `./partials/${section}.html`)
-    .then(async () => {
-      if (section === "resume") {
-        keepPresentEntriesFirst();
-        initResumeFilter();
-      }
-      if (section === "journey") {
-        initNewsFilter();
-      }
-      if (section === "publications") {
-        initPublicationsFilter();
-      }
-      if (section === "about") {
-        await ensureRecentUpdates();
-      }
-      updateActiveNav();
-    });
-});
-
-
-
-// Update the active state on navbar buttons based on the current URL hash
-function updateActiveNav() {
-  const navButtons = document.querySelectorAll('.navbar-link');
-  const currentSection = window.location.hash.substring(1) || 'about';
-  navButtons.forEach(btn => {
-    btn.classList.remove('active');
-    // You can match by text content (make sure the text matches your section names)
-    if (btn.textContent.trim().toLowerCase() === currentSection.toLowerCase()) {
-      btn.classList.add('active');
-    }
-  });
-}
-
-
-// window.addEventListener('DOMContentLoaded', () => {
-//   loadPartial('sidebar-placeholder', './partials/sidebar.html');
-//   loadPartial('navbar-placeholder', './partials/navbar.html');
-//   loadPartial('content-placeholder', './partials/about.html')
-// });
-
-
-
-
-// testimonials variables
-const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
-const modalContainer = document.querySelector("[data-modal-container]");
-const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
-const overlay = document.querySelector("[data-overlay]");
-
-// modal variable
-const modalImg = document.querySelector("[data-modal-img]");
-const modalTitle = document.querySelector("[data-modal-title]");
-const modalText = document.querySelector("[data-modal-text]");
-
-// modal toggle function
-const testimonialsModalFunc = function () {
-  modalContainer.classList.toggle("active");
-  overlay.classList.toggle("active");
-}
-
-
-
-
-// contact form variables
-const form = document.querySelector("[data-form]");
-const formInputs = document.querySelectorAll("[data-form-input]");
-const formBtn = document.querySelector("[data-form-btn]");
-
-// add event to all form input field
-for (let i = 0; i < formInputs.length; i++) {
-  formInputs[i].addEventListener("input", function () {
-
-    // check form validation
-    if (form.checkValidity()) {
-      formBtn.removeAttribute("disabled");
-    } else {
-      formBtn.setAttribute("disabled", "");
-    }
-
-  });
-}
-
 
 function markLastVisibleTimelineItem() {
   const items = document.querySelectorAll('.timeline-item');
@@ -219,8 +79,12 @@ function initNewsFilter() {
       const filterValue = button.getAttribute('data-filter');
 
       // only mess with buttons in this article
-      filterButtons.forEach(btn => btn.classList.remove('active'));
+      filterButtons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
+      });
       button.classList.add('active');
+      button.setAttribute('aria-pressed', 'true');
 
       // only mess with items in this article
       timelineItems.forEach(item => {
@@ -269,8 +133,12 @@ function initResumeFilter() {
     button.addEventListener('click', () => {
       const filterValue = button.getAttribute('data-filter');
 
-      filterButtons.forEach(btn => btn.classList.remove('active'));
+      filterButtons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
+      });
       button.classList.add('active');
+      button.setAttribute('aria-pressed', 'true');
 
       resumeSections.forEach(section => {
         const sectionCategory = section.getAttribute('data-category');
@@ -294,8 +162,12 @@ function initPublicationsFilter() {
     button.addEventListener('click', () => {
       const filterValue = button.getAttribute('data-filter');
 
-      filterButtons.forEach(btn => btn.classList.remove('active'));
+      filterButtons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
+      });
       button.classList.add('active');
+      button.setAttribute('aria-pressed', 'true');
 
       publicationItems.forEach(item => {
         const itemCategory = item.getAttribute('data-category');
@@ -308,19 +180,21 @@ function initPublicationsFilter() {
 }
 
 
+function closeSidebarNav() {
+  document.getElementById('sidebar-nav').style.display = 'none';
+  document.getElementById('hamburger').setAttribute('aria-expanded', 'false');
+}
+
 function toggleSidebarNav() {
-  const nav = document.getElementById('sidebar-nav');
-  // If it's hidden, show it. If shown, hide it.
-  if (nav.style.display === 'block') {
-    nav.style.display = 'none';
-  } else {
-    nav.style.display = 'block';
-  }
+  const button = document.getElementById('hamburger');
+  const expanded = button.getAttribute('aria-expanded') !== 'true';
+  document.getElementById('sidebar-nav').style.display = expanded ? 'block' : 'none';
+  button.setAttribute('aria-expanded', String(expanded));
 }
 
 function insertRecentUpdates() {
   const updatesList = document.querySelector('#recent-updates .timeline-list');
-  const journeyList = document.querySelector('#hidden-journey-placeholder article.news .timeline-list');
+  const journeyList = document.querySelector('#journey .timeline-list');
   if (!updatesList || !journeyList) return;
 
   updatesList.innerHTML = '';
@@ -337,22 +211,6 @@ function insertRecentUpdates() {
     clone.style.display = 'list-item';
     updatesList.appendChild(clone);
   });
-}
-
-
-async function ensureRecentUpdates() {
-  // Only do work if we're on About and the container exists
-  const updatesList = document.querySelector('#recent-updates .timeline-list');
-  if (!updatesList) return;
-
-  // If the hidden journey isn't loaded (or got replaced), load it first
-  let journeyList = document.querySelector('#hidden-journey-placeholder article.news .timeline-list');
-  if (!journeyList || journeyList.children.length === 0) {
-    await loadPartial('hidden-journey-placeholder', './partials/journey.html', false);
-  }
-
-  // Now (re)insert the two most recent items
-  insertRecentUpdates();
 }
 
 
@@ -420,48 +278,17 @@ function initNavbarAutoHide() {
       return;
     }
 
-    if (window.scrollY > 20) {
+    if (window.scrollY > 20 && !nav.contains(document.activeElement)) {
       nav.classList.add('navbar-hidden');
     } else {
       nav.classList.remove('navbar-hidden');
     }
   };
 
+  document.querySelector('.navbar').addEventListener('focusin', syncNavbarVisibility);
+  document.querySelector('.navbar').addEventListener('focusout', syncNavbarVisibility);
   window.addEventListener('scroll', syncNavbarVisibility, { passive: true });
   window.addEventListener('resize', syncNavbarVisibility, { passive: true });
   window.addEventListener('hashchange', syncNavbarVisibility);
   syncNavbarVisibility();
 }
-
-
-
-// ===== DEBUG (remove later) =====
-// (function () {
-//   const badge = document.createElement('div');
-//   badge.style.cssText = `
-//     position:fixed; z-index:9999; right:8px; bottom:8px;
-//     font:12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-//     background:#000c; color:#fff; padding:6px 8px; border-radius:8px;
-//     pointer-events:none;`;
-//   document.body.appendChild(badge);
-
-//   const mq = [
-//     ['≤579',  '(max-width: 579px)'],
-//     ['580–767','(min-width: 580px) and (max-width: 767px)'],
-//     ['768–1023','(min-width: 768px) and (max-width: 1023px)'],
-//     ['≥1024','(min-width: 1024px)']
-//   ].map(([label, q]) => [label, window.matchMedia(q)]);
-
-//   function tick() {
-//     const w = window.innerWidth;
-//     const active = mq.find(([, m]) => m.matches)?.[0] || '—';
-//     const nav = document.querySelector('.navbar');
-//     const navH = nav ? Math.round(getComputedStyle(nav).height.replace('px','')) : 0;
-//     badge.textContent = `w:${w}px  •  ${active}  •  navH:${navH}px`;
-//     // console view too:
-//     // console.log({w, active, navH});
-//   }
-//   window.addEventListener('resize', tick, {passive:true});
-//   window.addEventListener('DOMContentLoaded', tick);
-//   tick();
-// })();
